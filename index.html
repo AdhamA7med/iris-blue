@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Iris Blue | حلول البنية التحتية الرقمية والاتصالات ومراكز البيانات</title>
+  <meta name="description" content="ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى شبكات الألياف الضوئية ومراكز البيانات.">
+
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       01. DESIGN TOKENS & SYSTEM VARIABLES
+       ========================================================================== */
+    :root {
+      --blue: #3661FC;
+      --blue-dark: #1d43d8;
+      --blue-subtle: rgba(54, 97, 252, 0.06);
+      --orange: #FF5A1B;
+      --black: #000000;
+      --dark-surface: #0a0b10;
+      --dark-border: rgba(255, 255, 255, 0.12);
+      --white: #FFFFFF;
+      --off-white: #F8F9FC;
+      --border-light: rgba(0, 0, 0, 0.08);
+      --text-muted: #5e6472;
+      --text-muted-dark: #9da6b9;
+      
+      --font-cairo: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --container-max: 1540px;
+      --site-pad: clamp(1.25rem, 5vw, 4.5rem);
+      
+      --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       02. RESET & BASE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--white);
+      color: var(--black);
+      font-family: var(--font-cairo);
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      line-height: 1.6;
+      font-size: 1.05rem;
+      background-color: var(--white);
+      position: relative;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-editorial);
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    ::selection {
+      background-color: var(--blue);
+      color: var(--white);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--site-pad);
+    }
+
+    /* ==========================================================================
+       03. CUSTOM CURSOR (DESKTOP ONLY)
+       ========================================================================== */
+    .custom-cursor-dot,
+    .custom-cursor-ring {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.15s ease-out, background-color 0.25s ease;
+    }
+
+    .custom-cursor-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--blue);
+    }
+
+    .custom-cursor-ring {
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(54, 97, 252, 0.45);
+      transition: width 0.3s var(--ease-editorial), height 0.3s var(--ease-editorial), border-color 0.3s ease;
+    }
+
+    body.cursor-active .custom-cursor-dot,
+    body.cursor-active .custom-cursor-ring {
+      opacity: 1;
+    }
+
+    body.cursor-hover .custom-cursor-ring {
+      width: 48px;
+      height: 48px;
+      border-color: var(--orange);
+      background-color: rgba(255, 90, 27, 0.06);
+    }
+
+    /* ==========================================================================
+       04. NAVIGATION & ROBUST HAMBURGER / CLOSE ICON
+       ========================================================================== */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.4rem var(--site-pad);
+      transition: padding 0.4s var(--ease-editorial), background-color 0.4s var(--ease-editorial), border-color 0.4s ease, box-shadow 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-nav.scrolled {
+      padding: 0.9rem var(--site-pad);
+      background-color: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--border-light);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-inner {
+      max-width: var(--container-max);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      font-weight: 900;
+      font-size: clamp(1.2rem, 2vw, 1.45rem);
+      letter-spacing: -0.02em;
+      color: var(--black);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .brand-logo .dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--orange);
+      border-radius: 50%;
+      display: inline-block;
+      transition: transform 0.3s var(--ease-editorial);
+    }
+
+    .brand-logo:hover .dot {
+      transform: scale(1.4);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(1.5rem, 3vw, 2.75rem);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--black);
+      position: relative;
+      padding: 0.3rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0%;
+      height: 2px;
+      background-color: var(--blue);
+      transition: width 0.3s var(--ease-editorial);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-action-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1.8rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.35s var(--ease-editorial);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--orange);
+      transform: translateY(101%);
+      transition: transform 0.4s var(--ease-editorial);
+      z-index: 1;
+    }
+
+    .btn-primary:hover::before {
+      transform: translateY(0);
+    }
+
+    .btn-primary span,
+    .btn-primary svg {
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--black);
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn {
+      padding: 0.6rem 1.3rem;
+      font-size: 0.85rem;
+    }
+
+    /* Hamburger Button (Outer Nav) */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 2.5px;
+      background-color: var(--black);
+      border-radius: 2px;
+      transition: all 0.3s var(--ease-editorial);
+    }
+
+    .menu-toggle span:nth-child(1) { width: 22px; }
+    .menu-toggle span:nth-child(2) { width: 16px; margin-right: auto; margin-left: 5px; }
+    .menu-toggle span:nth-child(3) { width: 20px; }
+
+    /* ==========================================================================
+       MOBILE FULLSCREEN MENU WITH EXPLICIT CLOSE (X) BUTTON
+       ========================================================================== */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 100% 0%, #161e38 0%, #06070a 70%);
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem var(--site-pad) 2.5rem;
+      clip-path: circle(0% at top left);
+      transition: clip-path 0.55s var(--ease-editorial);
+      pointer-events: none;
+      overflow-y: auto;
+    }
+
+    .mobile-menu-overlay.is-open {
+      clip-path: circle(150% at top left);
+      pointer-events: auto;
+    }
+
+    /* Dedicated Mobile Menu Header with Brand and Close 'X' Button */
+    .mobile-menu-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .mobile-brand-title {
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--white);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+
+    .mobile-brand-title .dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--orange);
+      border-radius: 50%;
+    }
+
+    .mobile-close-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .mobile-close-btn:hover,
+    .mobile-close-btn:active {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: scale(1.05);
+    }
+
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .mobile-menu-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s var(--ease-editorial), transform 0.4s var(--ease-editorial);
+    }
+
+    .mobile-menu-overlay.is-open .mobile-menu-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(1) { transition-delay: 0.12s; }
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(2) { transition-delay: 0.18s; }
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(3) { transition-delay: 0.24s; }
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(4) { transition-delay: 0.30s; }
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(5) { transition-delay: 0.36s; }
+
+    .mobile-menu-links a {
+      font-size: clamp(1.45rem, 5.5vw, 2.1rem);
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.88);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .mobile-menu-links a .nav-index {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .mobile-menu-links a:hover,
+    .mobile-menu-links a:active {
+      color: var(--white);
+      transform: translateX(-6px);
+    }
+
+    .mobile-menu-footer {
+      border-top: 1px solid var(--dark-border);
+      padding-top: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .mobile-footer-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       05. SECTION 01: HERO (REFINED HEADINGS & PARTICLES)
+       ========================================================================== */
+    .hero-section {
+      min-height: 100vh;
+      padding-top: clamp(6.5rem, 12vh, 9rem);
+      padding-bottom: clamp(3rem, 5vh, 4.5rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background: radial-gradient(circle at 85% 15%, rgba(54, 97, 252, 0.07) 0%, transparent 55%), #FFFFFF;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-editorial-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: center;
+      margin-bottom: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--blue);
+      background: rgba(54, 97, 252, 0.06);
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(54, 97, 252, 0.12);
+    }
+
+    .hero-meta-tag .tag-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--orange);
+      border-radius: 50%;
+    }
+
+    /* Scaled down headline */
+    .hero-headline {
+      font-size: clamp(1.85rem, 3.4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.24;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline span.accent {
+      color: var(--blue);
+      display: inline;
+    }
+
+    .hero-supporting {
+      font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 550px;
+      line-height: 1.75;
+      margin-bottom: 2.25rem;
+      font-weight: 500;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .hero-visual-stage {
+      position: relative;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .hero-image-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 4.6;
+      overflow: hidden;
+      background-color: #e5e8f0;
+      box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.04);
+      transition: transform 1.2s var(--ease-editorial);
+    }
+
+    .hero-image-container:hover img {
+      transform: scale(1);
+    }
+
+    .hero-visual-accent-line {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 100px;
+      height: 100px;
+      border-top: 2px solid var(--blue);
+      border-right: 2px solid var(--blue);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-visual-badge {
+      position: absolute;
+      bottom: 2rem;
+      left: -2rem;
+      background-color: var(--black);
+      color: var(--white);
+      padding: 1.2rem 1.6rem;
+      max-width: 260px;
+      z-index: 4;
+      border-right: 3px solid var(--orange);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-visual-badge-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* CENTERED HERO STATS STRIP */
+    .hero-stats-band {
+      margin-top: clamp(2.5rem, 5vh, 4.5rem);
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 4rem);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-stat-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-stat-cell:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background-color: var(--border-light);
+    }
+
+    .hero-stat-num {
+      font-size: clamp(2.1rem, 3.2vw, 3.1rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 0.35rem;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    .hero-stat-num span.plus {
+      color: var(--orange);
+      font-weight: 800;
+      font-size: 0.85em;
+    }
+
+    .hero-stat-lbl {
+      font-size: clamp(0.85rem, 1vw, 0.98rem);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       06. SECTION 02: EDITORIAL INTRODUCTION
+       ========================================================================== */
+    .intro-section {
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      background-color: var(--white);
+      position: relative;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 5vw, 5.5rem);
+      align-items: center;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 2px;
+      background-color: var(--orange);
+      display: inline-block;
+    }
+
+    /* Scaled down section headline */
+    .intro-headline {
+      font-size: clamp(1.75rem, 2.7vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.6rem;
+      color: var(--black);
+    }
+
+    .intro-paragraph {
+      font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+      line-height: 1.85;
+      color: #383c44;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .intro-image-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 5 / 4.2;
+      overflow: hidden;
+      background-color: #eee;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+    }
+
+    .intro-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(12%);
+      transition: filter 0.5s ease, transform 0.8s var(--ease-editorial);
+    }
+
+    .intro-image-frame:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .intro-corner-graphic {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      background-color: var(--blue);
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .transition-guide-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-light);
+      padding: 2.25rem 0 0;
+      margin-top: 4.5rem;
+    }
+
+    .transition-guide-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-light);
+      margin: 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .transition-guide-line::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 45%;
+      background-color: var(--blue);
+    }
+
+    /* ==========================================================================
+       07. SECTION 03: SERVICES
+       ========================================================================== */
+    .services-section {
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      background-color: var(--off-white);
+      position: relative;
+    }
+
+    .services-header {
+      max-width: 780px;
+      margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    }
+
+    /* Scaled down */
+    .services-main-title {
+      font-size: clamp(1.85rem, 2.9vw, 2.85rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .services-sub-title {
+      font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .services-editorial-table {
+      border-top: 2px solid var(--black);
+      position: relative;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 70px 1.2fr 1.6fr 45px;
+      align-items: center;
+      padding: clamp(1.75rem, 3vw, 2.5rem) 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.4s var(--ease-editorial);
+      background-color: transparent;
+    }
+
+    .service-row::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--white);
+      opacity: 0;
+      z-index: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      transition: opacity 0.3s ease;
+    }
+
+    .service-row:hover::before {
+      opacity: 1;
+    }
+
+    .service-num,
+    .service-title,
+    .service-body,
+    .service-arrow {
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s var(--ease-editorial), color 0.3s ease;
+    }
+
+    .service-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .service-row:hover .service-num {
+      color: var(--orange);
+    }
+
+    .service-title {
+      font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+      font-weight: 800;
+      color: var(--black);
+      padding-left: 1.25rem;
+    }
+
+    .service-row:hover .service-title {
+      color: var(--blue);
+      transform: translateX(-6px);
+    }
+
+    .service-body {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .service-row:hover .service-body {
+      color: var(--black);
+    }
+
+    .service-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: var(--text-muted);
+    }
+
+    .service-arrow svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s var(--ease-editorial), stroke 0.3s ease;
+    }
+
+    .service-row:hover .service-arrow svg {
+      transform: translateX(-6px);
+      stroke: var(--orange);
+    }
+
+    .services-floating-preview {
+      position: fixed;
+      width: 360px;
+      height: 240px;
+      pointer-events: none;
+      z-index: 99;
+      opacity: 0;
+      overflow: hidden;
+      transform: scale(0.92);
+      transition: opacity 0.3s ease, transform 0.3s var(--ease-editorial);
+      background-color: var(--black);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .services-floating-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ==========================================================================
+       08. SECTION 04: FULL-WIDTH BLUE MOMENT
+       ========================================================================== */
+    .blue-statement-section {
+      background-color: var(--blue);
+      color: var(--white);
+      padding: clamp(4.5rem, 10vh, 8.5rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blue-statement-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 140px;
+      height: 5px;
+      background-color: var(--orange);
+    }
+
+    .statement-content-wrap {
+      max-width: 1000px;
+      margin-inline: auto;
+      text-align: right;
+    }
+
+    .statement-quote-mark {
+      width: 38px;
+      height: 38px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Scaled down */
+    .statement-headline {
+      font-size: clamp(1.85rem, 3.6vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.75rem;
+    }
+
+    .statement-annotation {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.98rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 600;
+    }
+
+    .statement-annotation::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background-color: var(--orange);
+    }
+
+    /* ==========================================================================
+       09. SECTION 05: WHY IRIS BLUE
+       ========================================================================== */
+    .why-section {
+      background-color: var(--black);
+      color: var(--white);
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      position: relative;
+    }
+
+    .why-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--dark-border);
+      padding-bottom: 2rem;
+      gap: 2rem;
+    }
+
+    /* Scaled down */
+    .why-title {
+      font-size: clamp(1.85rem, 3vw, 2.9rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .why-subtitle {
+      color: var(--text-muted-dark);
+      max-width: 440px;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .why-editorial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(2rem, 4vw, 4.5rem);
+    }
+
+    .why-item {
+      position: relative;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--dark-border);
+      transition: border-color 0.4s ease;
+    }
+
+    .why-item:hover {
+      border-top-color: var(--orange);
+    }
+
+    .why-item-num {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      display: inline-block;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .why-item:hover .why-item-num {
+      color: var(--orange);
+      transform: translateX(-4px);
+    }
+
+    .why-item-title {
+      font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+      color: var(--white);
+    }
+
+    .why-item-desc {
+      color: var(--text-muted-dark);
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    /* ==========================================================================
+       10. SECTION 06: STRATEGIC SECTORS
+       ========================================================================== */
+    .sectors-section {
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      background-color: var(--white);
+    }
+
+    .sectors-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(2.5rem, 5vw, 5.5rem);
+      align-items: center;
+    }
+
+    /* Scaled down */
+    .sectors-title {
+      font-size: clamp(1.85rem, 2.9vw, 2.85rem);
+      font-weight: 900;
+      margin-bottom: 2.25rem;
+      line-height: 1.25;
+    }
+
+    .sectors-list {
+      list-style: none;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .sector-item {
+      padding: 1.35rem 0;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .sector-item-text {
+      font-size: clamp(1rem, 1.25vw, 1.25rem);
+      font-weight: 700;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    .sector-item-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: transparent;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .sector-item:hover .sector-item-text,
+    .sector-item.is-active .sector-item-text {
+      color: var(--blue);
+    }
+
+    .sector-item:hover .sector-item-indicator,
+    .sector-item.is-active .sector-item-indicator {
+      background-color: var(--orange);
+      transform: scale(1.4);
+    }
+
+    .sector-item-arrow {
+      opacity: 0;
+      transform: translateX(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      color: var(--blue);
+    }
+
+    .sector-item:hover .sector-item-arrow,
+    .sector-item.is-active .sector-item-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .sectors-visual-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3.3;
+      background-color: #0b0c10;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.12);
+    }
+
+    .sectors-visual-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 0.6s var(--ease-editorial), transform 0.8s var(--ease-editorial);
+    }
+
+    .sectors-visual-stage img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .sectors-stage-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.65) 100%);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       11. SECTION 07: CINEMATIC MOMENT
+       ========================================================================== */
+    .cinematic-moment-section {
+      width: 100%;
+      min-height: 70vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--black);
+      overflow: hidden;
+    }
+
+    .cinematic-bg-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .cinematic-bg-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      transform: scale(1.03);
+      transition: transform 1.5s ease-out;
+    }
+
+    .cinematic-backdrop-filter {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.85) 100%);
+      z-index: 2;
+    }
+
+    .cinematic-caption-wrap {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 var(--site-pad);
+    }
+
+    /* Scaled down */
+    .cinematic-statement {
+      font-size: clamp(1.75rem, 3.2vw, 3.1rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .cinematic-statement-line {
+      display: block;
+      width: 40px;
+      height: 3px;
+      background-color: var(--orange);
+      margin: 1.75rem auto 0;
+    }
+
+    /* ==========================================================================
+       12. SECTION 08: EDITORIAL STATEMENT SPREAD
+       ========================================================================== */
+    .editorial-statement-section {
+      background-color: var(--black);
+      color: var(--white);
+      padding: clamp(5rem, 11vh, 9rem) 0;
+      position: relative;
+      border-bottom: 1px solid var(--dark-border);
+    }
+
+    .editorial-statement-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: flex-end;
+    }
+
+    /* Scaled down */
+    .dramatic-typography {
+      font-size: clamp(2.3rem, 5.6vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .dramatic-typography span.color-dot {
+      color: var(--orange);
+    }
+
+    .editorial-aside-content {
+      padding-bottom: 0.5rem;
+    }
+
+    .editorial-aside-text {
+      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+      line-height: 1.8;
+      color: var(--text-muted-dark);
+      margin-bottom: 2rem;
+      border-right: 2px solid var(--blue);
+      padding-right: 1.25rem;
+    }
+
+    /* ==========================================================================
+       13. SECTION 09: CONTACT FORM
+       ========================================================================== */
+    .contact-section {
+      padding: clamp(5rem, 10vh, 8.5rem) 0;
+      background-color: var(--white);
+      position: relative;
+    }
+
+    .contact-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+    }
+
+    /* Scaled down */
+    .contact-main-heading {
+      font-size: clamp(1.85rem, 3vw, 2.9rem);
+      font-weight: 900;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+    }
+
+    .contact-lead-text {
+      font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+      line-height: 1.75;
+      color: var(--text-muted);
+      margin-bottom: 2.25rem;
+      max-width: 500px;
+    }
+
+    .contact-trust-markers {
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .trust-marker-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .trust-marker-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--blue);
+      flex-shrink: 0;
+    }
+
+    .contact-form-column {
+      background-color: var(--off-white);
+      padding: clamp(1.75rem, 4vw, 3rem);
+      border: 1px solid var(--border-light);
+    }
+
+    .form-grid-inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.35rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background-color: var(--white);
+      border: 1px solid var(--border-light);
+      padding: 0.85rem 1.05rem;
+      font-size: 0.9rem;
+      color: var(--black);
+      border-radius: 0;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(54, 97, 252, 0.1);
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: left 1rem center;
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 1.05rem 2rem;
+      background-color: var(--blue);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 0.4rem;
+    }
+
+    .form-submit-btn:hover {
+      background-color: var(--orange);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       14. FOOTER
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--black);
+      color: var(--white);
+      padding: clamp(4.5rem, 8vh, 6.5rem) 0 2.5rem;
+      border-top: 1px solid var(--dark-border);
+    }
+
+    .footer-top-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr;
+      gap: clamp(2.5rem, 5vw, 5.5rem);
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid var(--dark-border);
+    }
+
+    .footer-brand-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+    }
+
+    .footer-brand-title span {
+      color: var(--orange);
+    }
+
+    .footer-brand-desc {
+      color: var(--text-muted-dark);
+      font-size: 0.98rem;
+      line-height: 1.75;
+      max-width: 420px;
+    }
+
+    .footer-nav-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .footer-nav-list a {
+      color: var(--text-muted-dark);
+      font-size: 0.9rem;
+      transition: color 0.25s ease, padding-right 0.25s ease;
+    }
+
+    .footer-nav-list a:hover {
+      color: var(--white);
+      padding-right: 6px;
+    }
+
+    .footer-bottom-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted-dark);
+    }
+
+    /* ==========================================================================
+       15. MOTION SYSTEM
+       ========================================================================== */
+    .reveal-elem {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s var(--ease-editorial), transform 0.8s var(--ease-editorial);
+      will-change: opacity, transform;
+    }
+
+    .reveal-elem.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-elem {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    /* ==========================================================================
+       16. RESPONSIVE ARCHITECTURE (MOBILE SPECIFIC ADJUSTMENTS)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .nav-links,
+      .site-nav .btn-primary {
+        display: none !important;
+      }
+      .menu-toggle {
+        display: flex !important;
+      }
+      .hero-editorial-wrap {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .hero-visual-stage {
+        max-width: 580px;
+        margin-inline: auto;
+      }
+      .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .intro-visual-column {
+        max-width: 580px;
+        margin-inline: auto;
+        width: 100%;
+      }
+      .sectors-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .sectors-visual-stage {
+        order: -1;
+        aspect-ratio: 16 / 9;
+      }
+      .editorial-statement-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .contact-split-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .why-editorial-grid {
+        gap: 2.5rem 1.75rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .service-row {
+        grid-template-columns: 45px 1fr 28px;
+        row-gap: 0.65rem;
+        padding: 1.6rem 0.5rem;
+      }
+      .service-body {
+        grid-column: 2 / 4;
+        font-size: 0.92rem;
+      }
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --site-pad: 1.35rem;
+      }
+      .hero-section {
+        padding-top: 6.25rem;
+      }
+      .hero-visual-badge {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: 1rem;
+        max-width: 100%;
+        border-right: none;
+        border-top: 3px solid var(--orange);
+      }
+      .hero-visual-accent-line {
+        display: none;
+      }
+      
+      /* Mobile Hero Stats - Fully Centered & Stacked Cleanly */
+      .hero-stats-band {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+        padding-top: 1.85rem;
+        margin-top: 3rem;
+      }
+      .hero-stat-cell {
+        align-items: center;
+        text-align: center;
+      }
+      .hero-stat-cell:not(:last-child)::after {
+        display: none;
+      }
+
+      .why-editorial-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .form-grid-inner {
+        grid-template-columns: 1fr;
+      }
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      .transition-guide-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+      .transition-guide-line {
+        width: 100%;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --site-pad: 1.15rem;
+      }
+      .site-nav {
+        padding: 1rem var(--site-pad);
+      }
+      .hero-headline {
+        font-size: 1.75rem;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+      }
+      .service-row {
+        grid-template-columns: 1fr auto;
+        padding: 1.35rem 0;
+      }
+      .service-num {
+        display: none;
+      }
+      .service-title {
+        padding-left: 0;
+        font-size: 1.15rem;
+      }
+      .service-body {
+        grid-column: 1 / 3;
+      }
+      .custom-cursor-dot,
+      .custom-cursor-ring {
+        display: none !important;
+      }
+      .contact-form-column {
+        padding: 1.35rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Precision Custom Cursor Elements (Desktop only) -->
+  <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Interactive Floating Image Preview for Services (Desktop only) -->
+  <div class="services-floating-preview" id="servicePreview" aria-hidden="true">
+    <img id="servicePreviewImg" src="" alt="Service Technical Visual">
+  </div>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="site-nav" id="mainNav" role="banner">
+    <div class="nav-inner">
+      <a href="#" class="brand-logo" aria-label="Iris Blue - الرئيسية">
+        IRIS BLUE
+        <span class="dot" aria-hidden="true"></span>
+      </a>
+
+      <nav class="nav-links" aria-label="التنقل الرئيسي">
+        <a href="#services">خدماتنا</a>
+        <a href="#why-us">لماذا Iris Blue</a>
+        <a href="#sectors">القطاعات</a>
+        <a href="#vision">رؤيتنا</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+
+      <div class="nav-action-wrapper">
+        <a href="#contact" class="btn btn-primary nav-btn">
+          <span>تواصل معنا</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+
+        <!-- Hamburger Icon Button -->
+        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" type="button">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       MOBILE FULLSCREEN MENU WITH EXPLICIT CLOSE (X) BUTTON
+       ========================================================================== -->
+  <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
+    
+    <!-- Top Header inside Menu with Clear Close 'X' Button -->
+    <div class="mobile-menu-top-bar">
+      <div class="mobile-brand-title">
+        IRIS BLUE
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <button class="mobile-close-btn" id="menuCloseBtn" aria-label="إغلاق القائمة" type="button">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="mobile-menu-links">
+      <li class="mobile-menu-item">
+        <a href="#" class="mobile-link"><span class="nav-index">01</span>الرئيسية</a>
+      </li>
+      <li class="mobile-menu-item">
+        <a href="#services" class="mobile-link"><span class="nav-index">02</span>خدماتنا</a>
+      </li>
+      <li class="mobile-menu-item">
+        <a href="#why-us" class="mobile-link"><span class="nav-index">03</span>لماذا نحن</a>
+      </li>
+      <li class="mobile-menu-item">
+        <a href="#sectors" class="mobile-link"><span class="nav-index">04</span>قطاعاتنا</a>
+      </li>
+      <li class="mobile-menu-item">
+        <a href="#contact" class="mobile-link"><span class="nav-index">05</span>تواصل معنا</a>
+      </li>
+    </ul>
+
+    <!-- Menu Bottom Details -->
+    <div class="mobile-menu-footer">
+      <div class="mobile-footer-meta">
+        <span>Iris Blue Tech Solutions</span>
+        <span style="color: var(--orange);">البنية التحتية الرقمية</span>
+      </div>
+      <a href="#contact" class="btn btn-primary mobile-link" style="width: 100%;">
+        <span>تواصل معنا</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <main id="mainContent">
+
+    <!-- ==========================================================================
+       SECTION 01: CINEMATIC HERO (CENTERED STATS & REFINED HEADINGS)
+       ========================================================================== -->
+    <section class="hero-section" aria-label="مقدمة الصفحة الرئيسية">
+      
+      <!-- Interactive Particles Layer -->
+      <div id="particles-js" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero-editorial-wrap">
+          
+          <div class="hero-content">
+            <div class="hero-meta-tag reveal-elem">
+              <span class="tag-dot" aria-hidden="true"></span>
+              <span>Iris Blue Tech Solutions • البنية الرقمية المتكاملة</span>
+            </div>
+
+            <h1 class="hero-headline reveal-elem">
+              حلول متكاملة للبنية الرقمية
+              <span class="accent">والاتصالات والشبكات</span>
+              ومراكز البيانات
+            </h1>
+
+            <p class="hero-supporting reveal-elem">
+              نقدم حلولاً هندسية وتنفيذية متقدمة في مسارات الألياف الضوئية، شبكات الاتصالات، ومراكز البيانات بمستويات اعتمادية تلبي متطلبات المشاريع الاستراتيجية.
+            </p>
+
+            <div class="hero-ctas reveal-elem">
+              <a href="#contact" class="btn btn-primary">
+                <span>تواصل معنا</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </a>
+              <a href="#services" class="btn btn-secondary">
+                <span>اكتشف خدماتنا</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual-stage reveal-elem">
+            <div class="hero-visual-accent-line" aria-hidden="true"></div>
+            <div class="hero-image-container">
+              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1400&q=85" alt="البنية التحتية للألياف الضوئية والاتصالات" width="1400" height="1680" fetchpriority="high">
+            </div>
+            <div class="hero-visual-badge">
+              <div class="hero-visual-badge-text">
+                دقة هندسية وقدرات ميدانية مجهزة لأعقد مشاريع الاتصالات.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Fully Centered Stats Strip -->
+        <div class="hero-stats-band reveal-elem">
+          <div class="hero-stat-cell">
+            <div class="hero-stat-num">
+              <span class="plus">+</span><span class="counter" data-target="10">0</span>
+            </div>
+            <div class="hero-stat-lbl">سنوات من الخبرة</div>
+          </div>
+
+          <div class="hero-stat-cell">
+            <div class="hero-stat-num">
+              <span class="plus">+</span><span class="counter" data-target="50">0</span>
+            </div>
+            <div class="hero-stat-lbl">مشروعاً منفذاً</div>
+          </div>
+
+          <div class="hero-stat-cell">
+            <div class="hero-stat-num">
+              <span class="plus">+</span><span class="counter" data-target="20">0</span>
+            </div>
+            <div class="hero-stat-lbl">شريكاً ومورداً</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 02: EDITORIAL INTRODUCTION
+       ========================================================================== -->
+    <section class="intro-section" id="about" aria-label="عن الشركة وقدراتنا">
+      <div class="container">
+        <div class="intro-grid">
+
+          <div class="intro-text-column reveal-elem">
+            <div class="section-eyebrow">منهجية العمل والجاهزية</div>
+            <h2 class="intro-headline">
+              من المسح والتخطيط
+              إلى التنفيذ والتسليم.
+            </h2>
+            <p class="intro-paragraph">
+              ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى تنفيذ شبكات الألياف الضوئية والاختبارات والتسليم، مع خبرة فنية وقدرات تنفيذية تناسب المشاريع الكبرى والمعقدة.
+            </p>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <span style="display: block; width: 35px; height: 1px; background-color: var(--blue);"></span>
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">حلول مصممة للمشاريع الوطنية والمؤسسية</span>
+            </div>
+          </div>
+
+          <div class="intro-visual-column reveal-elem">
+            <div class="intro-image-frame">
+              <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80" alt="مهندسو البنية التحتية الميدانية في موقع العمل" loading="lazy">
+              <div class="intro-corner-graphic" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="transition-guide-strip reveal-elem">
+          <div style="font-weight: 800; font-size: 0.85rem; color: var(--text-muted);">دورة حياة المشاريع الهندسية</div>
+          <div class="transition-guide-line" aria-hidden="true"></div>
+          <div style="font-size: 0.85rem; color: var(--orange); font-weight: 700;">المعايير المعتمدة 100%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 03: SERVICES
+       ========================================================================== -->
+    <section class="services-section" id="services" aria-label="خدماتنا وحلولنا المتخصصة">
+      <div class="container">
+        
+        <div class="services-header reveal-elem">
+          <div class="section-eyebrow">خدمات متكاملة</div>
+          <h2 class="services-main-title">خدماتنا</h2>
+          <p class="services-sub-title">
+            حلول متكاملة لمراحل المشروع المختلفة، من التخطيط وحتى التنفيذ والتسليم.
+          </p>
+        </div>
+
+        <div class="services-editorial-table" role="list">
+
+          <!-- 01 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">01</div>
+            <div class="service-title">البنية التحتية للاتصالات والشبكات</div>
+            <div class="service-body">تنفيذ وتوسعة البنية التحتية لشبكات الاتصالات والإنترنت وفق المتطلبات الفنية للمشروع.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- 02 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">02</div>
+            <div class="service-title">OSP &amp; Fiber Optics</div>
+            <div class="service-body">تنفيذ الشبكات الخارجية، مسارات الألياف الضوئية، أعمال السحب والتمديد، Fiber Splicing &amp; Optical Testing.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- 03 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">03</div>
+            <div class="service-title">الأعمال المدنية للاتصالات</div>
+            <div class="service-body">تنفيذ أعمال الحفر والخنادق والمسارات والبنية المدنية المرتبطة بمشاريع الاتصالات.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- 04 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">04</div>
+            <div class="service-title">المسح وتحديد الخدمات المدفونة</div>
+            <div class="service-body">تنفيذ المسح الميداني للمسارات واستخدام تقنية GPR لتحديد الخدمات والمنشآت المدفونة واختيار مسارات الحفر المناسبة.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- 05 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">05</div>
+            <div class="service-title">مراكز البيانات</div>
+            <div class="service-body">توفير وتنفيذ حلول وتجهيزات البنية التحتية لمراكز البيانات والمنشآت التي تتطلب مستويات عالية من الاعتمادية والاستمرارية.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- 06 -->
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
+            <div class="service-num">06</div>
+            <div class="service-title">المعدات والآليات الهندسية</div>
+            <div class="service-body">توفير واستخدام المعدات والآليات اللازمة لأعمال الحفر والتنفيذ وتمديد البنية التحتية.</div>
+            <div class="service-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 04: FULL-WIDTH BLUE MOMENT
+       ========================================================================== -->
+    <section class="blue-statement-section" aria-label="رؤية الاتصال">
+      <div class="container">
+        <div class="statement-content-wrap reveal-elem">
+          <svg class="statement-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-8.983z"/>
+          </svg>
+          <div class="statement-headline">
+            نبني البنية التحتية<br>
+            التي يعتمد عليها الاتصال.
+          </div>
+          <div class="statement-annotation">
+            Iris Blue Tech Solutions • التزام بالاستدامة والكفاءة الهندسية
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 05: WHY IRIS BLUE
+       ========================================================================== -->
+    <section class="why-section" id="why-us" aria-label="لماذا نحن">
+      <div class="container">
+        
+        <div class="why-header reveal-elem">
+          <h2 class="why-title">لماذا Iris Blue؟</h2>
+          <p class="why-subtitle">
+            نجمع بين الفهم الهندسي المتخصص والقدرات الميدانية المؤهلة للتعامل مع متطلبات المشاريع الحيوية.
+          </p>
+        </div>
+
+        <div class="why-editorial-grid">
+
+          <div class="why-item reveal-elem">
+            <span class="why-item-num">01 /</span>
+            <h3 class="why-item-title">خبرة فنية متخصصة</h3>
+            <p class="why-item-desc">
+              فهم عملي لمتطلبات مشاريع الاتصالات والبنية التحتية الرقمية.
+            </p>
+          </div>
+
+          <div class="why-item reveal-elem">
+            <span class="why-item-num">02 /</span>
+            <h3 class="why-item-title">قدرات تنفيذية متكاملة</h3>
+            <p class="why-item-desc">
+              من المسح والأعمال المدنية إلى تنفيذ الشبكات والاختبارات والتسليم.
+            </p>
+          </div>
+
+          <div class="why-item reveal-elem">
+            <span class="why-item-num">03 /</span>
+            <h3 class="why-item-title">حلول مصممة للمشاريع الكبرى</h3>
+            <p class="why-item-desc">
+              قدرة على التعامل مع المشاريع الوطنية والاستراتيجية والمشاريع ذات المتطلبات الفنية المعقدة.
+            </p>
+          </div>
+
+          <div class="why-item reveal-elem">
+            <span class="why-item-num">04 /</span>
+            <h3 class="why-item-title">جودة وسلامة</h3>
+            <p class="why-item-desc">
+              الالتزام بالمعايير الفنية وإجراءات السلامة وجودة التنفيذ في جميع مراحل المشروع.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 06: STRATEGIC SECTORS
+       ========================================================================== -->
+    <section class="sectors-section" id="sectors" aria-label="القطاعات التي نخدمها">
+      <div class="container">
+        <div class="sectors-layout">
+
+          <div class="sectors-content-wrap reveal-elem">
+            <div class="section-eyebrow">شراكات استراتيجية</div>
+            <h2 class="sectors-title">نخدم قطاعات استراتيجية</h2>
+
+            <ul class="sectors-list" role="list">
+              
+              <li class="sector-item is-active" data-image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80">
+                <span class="sector-item-text">
+                  <span class="sector-item-indicator" aria-hidden="true"></span>
+                  مشاريع البنية التحتية الوطنية والاستراتيجية
+                </span>
+                <span class="sector-item-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </li>
+
+              <li class="sector-item" data-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+                <span class="sector-item-text">
+                  <span class="sector-item-indicator" aria-hidden="true"></span>
+                  شركات الاتصالات ومزودو خدمات الإنترنت
+                </span>
+                <span class="sector-item-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </li>
+
+              <li class="sector-item" data-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+                <span class="sector-item-text">
+                  <span class="sector-item-indicator" aria-hidden="true"></span>
+                  مراكز البيانات
+                </span>
+                <span class="sector-item-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </li>
+
+              <li class="sector-item" data-image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">
+                <span class="sector-item-text">
+                  <span class="sector-item-indicator" aria-hidden="true"></span>
+                  الجهات الحكومية والمؤسسات العامة
+                </span>
+                <span class="sector-item-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </li>
+
+              <li class="sector-item" data-image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80">
+                <span class="sector-item-text">
+                  <span class="sector-item-indicator" aria-hidden="true"></span>
+                  المشاريع الكبرى والمنشآت الحيوية
+                </span>
+                <span class="sector-item-arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </span>
+              </li>
+
+            </ul>
+          </div>
+
+          <div class="sectors-visual-stage reveal-elem" aria-hidden="true">
+            <img id="activeSectorImage" src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80" alt="قطاع استراتيجي" class="active">
+            <div class="sectors-stage-overlay"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 07: CINEMATIC FULL VIEWPORT MOMENT
+       ========================================================================== -->
+    <section class="cinematic-moment-section" aria-label="رؤية التنفيذ">
+      <div class="cinematic-bg-media">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85" alt="موقع هندسي لتنفيذ البنية التحتية" loading="lazy">
+      </div>
+      <div class="cinematic-backdrop-filter"></div>
+      
+      <div class="cinematic-caption-wrap reveal-elem">
+        <blockquote class="cinematic-statement">
+          البنية التحتية القوية تبدأ من التنفيذ الصحيح.
+        </blockquote>
+        <span class="cinematic-statement-line" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 08: DRAMATIC BLACK EDITORIAL SPREAD
+       ========================================================================== -->
+    <section class="editorial-statement-section" id="vision" aria-label="رؤية التطوير الهندسي">
+      <div class="container">
+        <div class="editorial-statement-grid">
+
+          <div class="reveal-elem">
+            <h2 class="dramatic-typography">
+              من الفكرة<br>
+              إلى التنفيذ<span class="color-dot">.</span>
+            </h2>
+          </div>
+
+          <div class="editorial-aside-content reveal-elem">
+            <p class="editorial-aside-text">
+              خبرة فنية وقدرات تنفيذية تمتد عبر مراحل المشروع المختلفة. نضمن الدقة في كل مسار والتوافق مع أعلى المعايير الهندسية المعمول بها عالمياً.
+            </p>
+            <a href="#contact" class="btn btn-primary">
+              <span>ابدأ مشروعك معنا</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 09: CONTACT FORM
+       ========================================================================== -->
+    <section class="contact-section" id="contact" aria-label="تواصل معنا">
+      <div class="container">
+        <div class="contact-split-grid">
+
+          <div class="contact-pitch-column reveal-elem">
+            <div class="section-eyebrow">بدء التعاون</div>
+            <h2 class="contact-main-heading">
+              لديك مشروع يحتاج<br>
+              إلى بنية تحتية موثوقة؟
+            </h2>
+            <p class="contact-lead-text">
+              شاركنا تفاصيل مشروعك، وتواصل مع فريق Iris Blue لمناقشة احتياجات مشروعك الفنية والجدول الزمني للتنفيذ.
+            </p>
+
+            <div class="contact-trust-markers">
+              <div class="trust-marker-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>معايير تنفيذ مطابقة للمواصفات القياسية</span>
+              </div>
+              <div class="trust-marker-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>جاهزية لتغطية مشاريع البنية التحتية الكبرى</span>
+              </div>
+              <div class="trust-marker-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>تخطيط دقيق وتطبيق تقنيات المسح الميداني GPR</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-column reveal-elem">
+            <form id="strategicContactForm" onsubmit="handleFormSubmit(event)">
+              
+              <div class="form-grid-inner">
+                
+                <div class="form-group">
+                  <label class="form-label" for="clientName">الاسم</label>
+                  <input class="form-input" type="text" id="clientName" name="clientName" required placeholder="الاسم الكامل" autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="companyName">الشركة / الجهة</label>
+                  <input class="form-input" type="text" id="companyName" name="companyName" required placeholder="اسم المنشأة" autocomplete="organization">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="clientEmail">البريد الإلكتروني</label>
+                  <input class="form-input" type="email" id="clientEmail" name="clientEmail" required placeholder="email@company.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="clientPhone">رقم الهاتف</label>
+                  <input class="form-input" type="tel" id="clientPhone" name="clientPhone" required placeholder="+966 ..." autocomplete="tel" dir="ltr" style="text-align: right;">
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label" for="projectType">نوع المشروع</label>
+                  <select class="form-select" id="projectType" name="projectType" required>
+                    <option value="" disabled selected>اختر نوع المشروع أو الخدمة المطلوبة</option>
+                    <option value="telecom">البنية التحتية للاتصالات والشبكات</option>
+                    <option value="osp">OSP &amp; Fiber Optics</option>
+                    <option value="civil">الأعمال المدنية للاتصالات</option>
+                    <option value="gpr">المسح وتحديد الخدمات المدفونة (GPR)</option>
+                    <option value="datacenter">مراكز البيانات</option>
+                    <option value="equipment">المعدات والآليات الهندسية</option>
+                    <option value="other">مشروع استراتيجي متكامل</option>
+                  </select>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label" for="projectMessage">رسالتك</label>
+                  <textarea class="form-textarea" id="projectMessage" name="projectMessage" required placeholder="وضح موجز المشروع، النطاق الجغرافي والمتطلبات الفنية..."></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                  <button type="submit" class="form-submit-btn" id="submitBtn">
+                    <span>إرسال الطلب</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  </button>
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      
+      <div class="footer-top-grid">
+        
+        <div class="footer-brand-column">
+          <div class="footer-brand-title">IRIS BLUE<span>.</span></div>
+          <p class="footer-brand-desc">
+            البنية الرقمية والاتصالات والبنية التحتية التقنية. حلول هندسية متكاملة للمشاريع الاستراتيجية والوطنية.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-nav-title">الخدمات الأساسية</div>
+          <ul class="footer-nav-list">
+            <li><a href="#services">شبكات الألياف الضوئية OSP</a></li>
+            <li><a href="#services">المسح الراداري GPR</a></li>
+            <li><a href="#services">البنية التحتية لمراكز البيانات</a></li>
+            <li><a href="#services">الأعمال المدنية والهندسية</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-nav-title">روابط سريعة</div>
+          <ul class="footer-nav-list">
+            <li><a href="#about">منهجية العمل</a></li>
+            <li><a href="#why-us">لماذا Iris Blue</a></li>
+            <li><a href="#sectors">القطاعات المستهدفة</a></li>
+            <li><a href="#contact">طلب استشارة فنية</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="footer-official-name">Iris Blue Tech Solutions &copy; <span id="currentYear">2026</span></div>
+        <div style="font-size: 0.85rem;">جميع الحقوق محفوظة لمشاريع البنية الرقمية المتقدمة</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT: PARTICLES + MOBILE MENU + BEHAVIORS
+       ========================================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Dynamic Year
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      /* ------------------------------------------------------------------------
+         01. PARTICLES.JS INITIALIZATION
+         ------------------------------------------------------------------------ */
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 45,
+              "density": {
+                "enable": true,
+                "value_area": 950
+              }
+            },
+            "color": {
+              "value": ["#3661FC", "#3661FC", "#FF5A1B"]
+            },
+            "shape": {
+              "type": "circle"
+            },
+            "opacity": {
+              "value": 0.35,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 0.8,
+                "opacity_min": 0.15,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 3.2,
+              "random": true,
+              "anim": {
+                "enable": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#3661FC",
+              "opacity": 0.22,
+              "width": 1.2
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.2,
+              "direction": "none",
+              "random": false,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false
+            }
+          },
+          "interactivity": {
+            "detect_on": "window",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": false
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 160,
+                "line_linked": {
+                  "opacity": 0.45
+                }
+              }
+            }
+          },
+          "retina_detect": true
+        });
+      }
+
+      /* ------------------------------------------------------------------------
+         02. BULLETPROOF MOBILE MENU OPEN & CLOSE (X)
+         ------------------------------------------------------------------------ */
+      const menuToggle = document.getElementById('menuToggle');
+      const menuCloseBtn = document.getElementById('menuCloseBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      const openMobileMenu = () => {
+        mobileMenu.classList.add('is-open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeMobileMenu = () => {
+        mobileMenu.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+
+      // Open from hamburger button
+      menuToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        openMobileMenu();
+      });
+
+      // Close from explicit X button
+      menuCloseBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMobileMenu();
+      });
+
+      // Close upon clicking any menu link
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+
+      // Close with Escape key
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+          closeMobileMenu();
+        }
+      });
+
+      /* ------------------------------------------------------------------------
+         03. Custom Cursor (Desktop Only)
+         ------------------------------------------------------------------------ */
+      const cursorDot = document.getElementById('cursorDot');
+      const cursorRing = document.getElementById('cursorRing');
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 1024);
+
+      if (!isTouch && cursorDot && cursorRing) {
+        document.body.classList.add('cursor-active');
+
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        });
+
+        const renderCursor = () => {
+          ringX += (mouseX - ringX) * 0.18;
+          ringY += (mouseY - ringY) * 0.18;
+          cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+          requestAnimationFrame(renderCursor);
+        };
+        requestAnimationFrame(renderCursor);
+
+        const hoverTargets = document.querySelectorAll('a, button, input, select, textarea, .service-row, .sector-item');
+        hoverTargets.forEach((target) => {
+          target.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+          target.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+      }
+
+      /* ------------------------------------------------------------------------
+         04. Navbar Blur on Scroll
+         ------------------------------------------------------------------------ */
+      const mainNav = document.getElementById('mainNav');
+      const handleScroll = () => {
+        if (window.scrollY > 35) {
+          mainNav.classList.add('scrolled');
+        } else {
+          mainNav.classList.remove('scrolled');
+        }
+      };
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      /* ------------------------------------------------------------------------
+         05. Intersection Observer: High-End Content Reveal
+         ------------------------------------------------------------------------ */
+      const revealElements = document.querySelectorAll('.reveal-elem');
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -30px 0px'
+        });
+
+        revealElements.forEach((el) => revealObserver.observe(el));
+      } else {
+        revealElements.forEach((el) => el.classList.add('is-revealed'));
+      }
+
+      /* ------------------------------------------------------------------------
+         06. Animated Statistics Numbers
+         ------------------------------------------------------------------------ */
+      const counterElements = document.querySelectorAll('.counter');
+      let statsStarted = false;
+
+      const runCounters = () => {
+        counterElements.forEach((counter) => {
+          const target = +counter.getAttribute('data-target');
+          let count = 0;
+          const duration = 1500;
+          const stepTime = Math.max(Math.floor(duration / target), 30);
+
+          const timer = setInterval(() => {
+            count += 1;
+            counter.innerText = count;
+            if (count >= target) {
+              counter.innerText = target;
+              clearInterval(timer);
+            }
+          }, stepTime);
+        });
+      };
+
+      const statsBand = document.querySelector('.hero-stats-band');
+      if (statsBand && 'IntersectionObserver' in window) {
+        const statsObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !statsStarted) {
+              statsStarted = true;
+              runCounters();
+            }
+          });
+        }, { threshold: 0.25 });
+        statsObserver.observe(statsBand);
+      }
+
+      /* ------------------------------------------------------------------------
+         07. Desktop Service Preview Floating Image
+         ------------------------------------------------------------------------ */
+      const serviceRows = document.querySelectorAll('.service-row');
+      const servicePreview = document.getElementById('servicePreview');
+      const servicePreviewImg = document.getElementById('servicePreviewImg');
+
+      if (!isTouch && servicePreview && servicePreviewImg) {
+        let previewTargetX = 0, previewTargetY = 0;
+        let previewCurrentX = 0, previewCurrentY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+          previewTargetX = e.clientX + 30;
+          previewTargetY = e.clientY - 120;
+        });
+
+        const updatePreviewPos = () => {
+          previewCurrentX += (previewTargetX - previewCurrentX) * 0.12;
+          previewCurrentY += (previewTargetY - previewCurrentY) * 0.12;
+          servicePreview.style.transform = `translate(${previewCurrentX}px, ${previewCurrentY}px)`;
+          requestAnimationFrame(updatePreviewPos);
+        };
+        requestAnimationFrame(updatePreviewPos);
+
+        serviceRows.forEach((row) => {
+          row.addEventListener('mouseenter', () => {
+            const imgSrc = row.getAttribute('data-preview-image');
+            if (imgSrc) {
+              servicePreviewImg.src = imgSrc;
+              servicePreview.style.opacity = '1';
+            }
+          });
+
+          row.addEventListener('mouseleave', () => {
+            servicePreview.style.opacity = '0';
+          });
+        });
+      }
+
+      /* ------------------------------------------------------------------------
+         08. Strategic Sectors Image Switcher
+         ------------------------------------------------------------------------ */
+      const sectorItems = document.querySelectorAll('.sector-item');
+      const activeSectorImg = document.getElementById('activeSectorImage');
+
+      sectorItems.forEach((item) => {
+        item.addEventListener('mouseenter', () => {
+          sectorItems.forEach((s) => s.classList.remove('is-active'));
+          item.classList.add('is-active');
+
+          const newSrc = item.getAttribute('data-image');
+          if (newSrc && activeSectorImg && activeSectorImg.src !== newSrc) {
+            activeSectorImg.style.opacity = '0.25';
+            setTimeout(() => {
+              activeSectorImg.src = newSrc;
+              activeSectorImg.style.opacity = '1';
+            }, 160);
+          }
+        });
+      });
+
+    });
+
+    /* ------------------------------------------------------------------------
+       09. Form Submission Feedback
+       ------------------------------------------------------------------------ */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById('submitBtn');
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.disabled = true;
+      submitBtn.style.backgroundColor = 'var(--blue-dark)';
+      submitBtn.innerHTML = '<span>جاري إرسال الطلب...</span>';
+
+      setTimeout(() => {
+        submitBtn.style.backgroundColor = '#16a34a';
+        submitBtn.innerHTML = '<span>تم استلام طلبك بنجاح</span>';
+
+        setTimeout(() => {
+          event.target.reset();
+          submitBtn.disabled = false;
+          submitBtn.style.backgroundColor = '';
+          submitBtn.innerHTML = originalText;
+        }, 3200);
+      }, 950);
+    }
+  </script>
+</body>
+</html>
