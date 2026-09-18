@@ -25,6 +25,7 @@
       --orange: #FF5A1B;
       --black: #000000;
       --dark-surface: #0a0b10;
+      --dark-card: #12141c;
       --dark-border: rgba(255, 255, 255, 0.12);
       --white: #FFFFFF;
       --off-white: #F8F9FC;
@@ -81,13 +82,14 @@
       transition: all 0.3s var(--ease-editorial);
     }
 
-    button, input, textarea, select {
+    button {
       font-family: inherit;
       font-size: inherit;
       color: inherit;
       border: none;
       background: none;
       outline: none;
+      cursor: pointer;
     }
 
     ::selection {
@@ -144,7 +146,7 @@
     }
 
     /* ==========================================================================
-       04. NAVIGATION & ROBUST HAMBURGER / CLOSE ICON
+       04. NAVIGATION & HAMBURGER
        ========================================================================== */
     .site-nav {
       position: fixed;
@@ -202,7 +204,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(1.5rem, 3vw, 2.75rem);
+      gap: clamp(1.2rem, 2.5vw, 2.2rem);
       list-style: none;
     }
 
@@ -295,7 +297,7 @@
       font-size: 0.85rem;
     }
 
-    /* Hamburger Button (Outer Nav) */
+    /* Hamburger Button */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -325,7 +327,7 @@
     .menu-toggle span:nth-child(3) { width: 20px; }
 
     /* ==========================================================================
-       MOBILE FULLSCREEN MENU WITH EXPLICIT CLOSE (X) BUTTON
+       MOBILE FULLSCREEN MENU WITH CLOSE BUTTON
        ========================================================================== */
     .mobile-menu-overlay {
       position: fixed;
@@ -347,7 +349,6 @@
       pointer-events: auto;
     }
 
-    /* Dedicated Mobile Menu Header with Brand and Close 'X' Button */
     .mobile-menu-top-bar {
       display: flex;
       align-items: center;
@@ -397,9 +398,9 @@
     .mobile-menu-links {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.15rem;
       list-style: none;
-      margin: 2rem 0;
+      margin: 1.5rem 0;
     }
 
     .mobile-menu-item {
@@ -418,9 +419,10 @@
     .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(3) { transition-delay: 0.24s; }
     .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(4) { transition-delay: 0.30s; }
     .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(5) { transition-delay: 0.36s; }
+    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(6) { transition-delay: 0.42s; }
 
     .mobile-menu-links a {
-      font-size: clamp(1.45rem, 5.5vw, 2.1rem);
+      font-size: clamp(1.35rem, 5vw, 1.95rem);
       font-weight: 800;
       color: rgba(255, 255, 255, 0.88);
       display: flex;
@@ -442,7 +444,7 @@
 
     .mobile-menu-footer {
       border-top: 1px solid var(--dark-border);
-      padding-top: 1.75rem;
+      padding-top: 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
@@ -458,7 +460,7 @@
     }
 
     /* ==========================================================================
-       05. SECTION 01: HERO (REFINED HEADINGS & PARTICLES)
+       05. SECTION 01: HERO
        ========================================================================== */
     .hero-section {
       min-height: 100vh;
@@ -519,7 +521,6 @@
       border-radius: 50%;
     }
 
-    /* Scaled down headline */
     .hero-headline {
       font-size: clamp(1.85rem, 3.4vw, 3.2rem);
       font-weight: 900;
@@ -608,7 +609,7 @@
       line-height: 1.5;
     }
 
-    /* CENTERED HERO STATS STRIP */
+    /* CENTERED STATS STRIP */
     .hero-stats-band {
       margin-top: clamp(2.5rem, 5vh, 4.5rem);
       padding-top: 2rem;
@@ -699,7 +700,6 @@
       display: inline-block;
     }
 
-    /* Scaled down section headline */
     .intro-headline {
       font-size: clamp(1.75rem, 2.7vw, 2.6rem);
       font-weight: 900;
@@ -795,7 +795,6 @@
       margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
     }
 
-    /* Scaled down */
     .services-main-title {
       font-size: clamp(1.85rem, 2.9vw, 2.85rem);
       font-weight: 900;
@@ -902,18 +901,20 @@
       stroke: var(--orange);
     }
 
+    /* Floating Image: Safe near-cursor rendering */
     .services-floating-preview {
       position: fixed;
-      width: 360px;
-      height: 240px;
+      width: 280px;
+      height: 190px;
       pointer-events: none;
-      z-index: 99;
+      z-index: 9999;
       opacity: 0;
       overflow: hidden;
-      transform: scale(0.92);
-      transition: opacity 0.3s ease, transform 0.3s var(--ease-editorial);
+      border-radius: 4px;
       background-color: var(--black);
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.25s ease;
+      will-change: transform;
     }
 
     .services-floating-preview img {
@@ -956,7 +957,6 @@
       margin-bottom: 1.5rem;
     }
 
-    /* Scaled down */
     .statement-headline {
       font-size: clamp(1.85rem, 3.6vw, 3.4rem);
       font-weight: 900;
@@ -982,7 +982,128 @@
     }
 
     /* ==========================================================================
-       09. SECTION 05: WHY IRIS BLUE
+       09. SECTION 05: PROJECTS SHOWCASE (PREMIUM CARD & CLEAR IMAGERY)
+       ========================================================================== */
+    .projects-section {
+      padding: clamp(5rem, 11vh, 9rem) 0;
+      background-color: var(--white);
+      position: relative;
+    }
+
+    .projects-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: clamp(3rem, 6vw, 4.5rem);
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 2rem;
+    }
+
+    .projects-title {
+      font-size: clamp(1.85rem, 2.9vw, 2.85rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .projects-subtitle {
+      color: var(--text-muted);
+      max-width: 500px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* New Architectural Card: Image Remains Completely Visible & Clear */
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.4s var(--ease-editorial), border-color 0.4s ease, box-shadow 0.4s ease;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(54, 97, 252, 0.3);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+    }
+
+    .project-image-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background-color: #0b0c10;
+    }
+
+    .project-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s var(--ease-editorial);
+    }
+
+    .project-card:hover .project-image-box img {
+      transform: scale(1.05);
+    }
+
+    .project-tag-pill {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.35rem 0.75rem;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2;
+    }
+
+    .project-card-body {
+      padding: 1.5rem 1.4rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      background-color: var(--white);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .project-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+      transition: color 0.3s ease;
+    }
+
+    .project-card:hover .project-card-title {
+      color: var(--blue);
+    }
+
+    .project-card-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      font-weight: 500;
+      margin-top: auto;
+    }
+
+    /* ==========================================================================
+       10. SECTION 06: WHY IRIS BLUE
        ========================================================================== */
     .why-section {
       background-color: var(--black);
@@ -1002,7 +1123,6 @@
       gap: 2rem;
     }
 
-    /* Scaled down */
     .why-title {
       font-size: clamp(1.85rem, 3vw, 2.9rem);
       font-weight: 900;
@@ -1061,7 +1181,7 @@
     }
 
     /* ==========================================================================
-       10. SECTION 06: STRATEGIC SECTORS
+       11. SECTION 07: STRATEGIC SECTORS
        ========================================================================== */
     .sectors-section {
       padding: clamp(5rem, 10vh, 8.5rem) 0;
@@ -1075,7 +1195,6 @@
       align-items: center;
     }
 
-    /* Scaled down */
     .sectors-title {
       font-size: clamp(1.85rem, 2.9vw, 2.85rem);
       font-weight: 900;
@@ -1173,11 +1292,11 @@
     }
 
     /* ==========================================================================
-       11. SECTION 07: CINEMATIC MOMENT
+       12. SECTION 08: CINEMATIC MOMENT
        ========================================================================== */
     .cinematic-moment-section {
       width: 100%;
-      min-height: 70vh;
+      min-height: 65vh;
       position: relative;
       display: flex;
       align-items: center;
@@ -1203,6 +1322,10 @@
       transition: transform 1.5s ease-out;
     }
 
+    .cinematic-moment-section:hover .cinematic-bg-media img {
+      transform: scale(1);
+    }
+
     .cinematic-backdrop-filter {
       position: absolute;
       inset: 0;
@@ -1218,7 +1341,6 @@
       padding: 0 var(--site-pad);
     }
 
-    /* Scaled down */
     .cinematic-statement {
       font-size: clamp(1.75rem, 3.2vw, 3.1rem);
       font-weight: 900;
@@ -1236,191 +1358,250 @@
     }
 
     /* ==========================================================================
-       12. SECTION 08: EDITORIAL STATEMENT SPREAD
+       13. SECTION 09: STRATEGIC CONTACT HUB
        ========================================================================== */
-    .editorial-statement-section {
-      background-color: var(--black);
-      color: var(--white);
+    .contact-hub-section {
       padding: clamp(5rem, 11vh, 9rem) 0;
-      position: relative;
-      border-bottom: 1px solid var(--dark-border);
-    }
-
-    .editorial-statement-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 0.8fr;
-      gap: clamp(2.5rem, 5vw, 4.5rem);
-      align-items: flex-end;
-    }
-
-    /* Scaled down */
-    .dramatic-typography {
-      font-size: clamp(2.3rem, 5.6vw, 4.8rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      color: var(--white);
-    }
-
-    .dramatic-typography span.color-dot {
-      color: var(--orange);
-    }
-
-    .editorial-aside-content {
-      padding-bottom: 0.5rem;
-    }
-
-    .editorial-aside-text {
-      font-size: clamp(0.95rem, 1.2vw, 1.15rem);
-      line-height: 1.8;
-      color: var(--text-muted-dark);
-      margin-bottom: 2rem;
-      border-right: 2px solid var(--blue);
-      padding-right: 1.25rem;
-    }
-
-    /* ==========================================================================
-       13. SECTION 09: CONTACT FORM
-       ========================================================================== */
-    .contact-section {
-      padding: clamp(5rem, 10vh, 8.5rem) 0;
-      background-color: var(--white);
+      background-color: var(--off-white);
       position: relative;
     }
 
-    .contact-split-grid {
+    .contact-hub-grid {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: clamp(2.5rem, 6vw, 6rem);
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(2.5rem, 5vw, 5.5rem);
+      align-items: center;
     }
 
-    /* Scaled down */
-    .contact-main-heading {
-      font-size: clamp(1.85rem, 3vw, 2.9rem);
+    .contact-hub-info {
+      position: relative;
+    }
+
+    .contact-hub-title {
+      font-size: clamp(1.9rem, 3.2vw, 3.1rem);
       font-weight: 900;
       line-height: 1.22;
       letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
       color: var(--black);
     }
 
-    .contact-lead-text {
-      font-size: clamp(0.95rem, 1.15vw, 1.1rem);
-      line-height: 1.75;
+    .contact-hub-desc {
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      line-height: 1.8;
       color: var(--text-muted);
-      margin-bottom: 2.25rem;
-      max-width: 500px;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+      font-weight: 500;
     }
 
-    .contact-trust-markers {
-      border-top: 1px solid var(--border-light);
-      padding-top: 1.75rem;
+    .contact-actions-list {
       display: flex;
       flex-direction: column;
-      gap: 1.15rem;
+      gap: 1.25rem;
     }
 
-    .trust-marker-item {
+    .contact-channel-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 1.75rem;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      transition: all 0.35s var(--ease-editorial);
+    }
+
+    .contact-channel-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(54, 97, 252, 0.08);
+    }
+
+    .channel-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .channel-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .channel-icon.whatsapp {
+      background-color: #25D366;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    }
+
+    .channel-icon.phone {
+      background-color: #007AFF;
+      box-shadow: 0 4px 14px rgba(0, 122, 255, 0.3);
+    }
+
+    .channel-icon.email {
+      background-color: var(--black);
+      color: var(--white);
+    }
+
+    .channel-details h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 0.2rem;
+    }
+
+    .channel-details p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      direction: ltr;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .channel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue);
+      padding: 0.5rem 1.1rem;
+      background: var(--blue-subtle);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-channel-card:hover .channel-badge {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .contact-executive-box {
+      background-color: var(--black);
+      color: var(--white);
+      padding: clamp(2rem, 4vw, 3.25rem);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-executive-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+    }
+
+    .exec-box-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    .exec-box-desc {
+      color: var(--text-muted-dark);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .exec-trust-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .exec-trust-item {
       display: flex;
       align-items: center;
       gap: 0.85rem;
       font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--black);
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
     }
 
-    .trust-marker-item svg {
+    .exec-trust-item svg {
       width: 18px;
       height: 18px;
-      color: var(--blue);
+      color: var(--orange);
       flex-shrink: 0;
     }
 
-    .contact-form-column {
-      background-color: var(--off-white);
-      padding: clamp(1.75rem, 4vw, 3rem);
-      border: 1px solid var(--border-light);
-    }
-
-    .form-grid-inner {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.35rem;
-    }
-
-    .form-group {
+    /* ==========================================================================
+       14. FLOATING ACTION ICONS (ON THE RIGHT WITH OFFICIAL LOGOS)
+       ========================================================================== */
+    .floating-contact-actions {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem; /* Positioned Strictly on the Right */
+      left: auto;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      gap: 1rem;
+      z-index: 9990;
     }
 
-    .form-group.full-width {
-      grid-column: span 2;
-    }
-
-    .form-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--black);
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
-      width: 100%;
-      background-color: var(--white);
-      border: 1px solid var(--border-light);
-      padding: 0.85rem 1.05rem;
-      font-size: 0.9rem;
-      color: var(--black);
-      border-radius: 0;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(54, 97, 252, 0.1);
-    }
-
-    .form-select {
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: left 1rem center;
-    }
-
-    .form-textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .form-submit-btn {
-      width: 100%;
-      padding: 1.05rem 2rem;
-      background-color: var(--blue);
-      color: var(--white);
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-flex;
+    .floating-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      margin-top: 0.4rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s var(--ease-editorial), box-shadow 0.3s ease;
+      position: relative;
     }
 
-    .form-submit-btn:hover {
-      background-color: var(--orange);
-      transform: translateY(-1px);
+    .floating-btn.whatsapp {
+      background-color: #25D366;
+    }
+
+    .floating-btn.phone {
+      background-color: #007AFF;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1) translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Tooltip positioned to the left since buttons are on the right */
+    .floating-btn .tooltip {
+      position: absolute;
+      left: calc(100% + 14px);
+      right: auto;
+      top: 50%;
+      transform: translateY(-50%) translateX(-10px);
+      background-color: var(--black);
+      color: var(--white);
+      padding: 0.4rem 0.85rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .floating-btn:hover .tooltip {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
     }
 
     /* ==========================================================================
-       14. FOOTER
+       15. FOOTER
        ========================================================================== */
     .site-footer {
       background-color: var(--black);
@@ -1493,7 +1674,7 @@
     }
 
     /* ==========================================================================
-       15. MOTION SYSTEM
+       16. MOTION SYSTEM & REVEALS
        ========================================================================== */
     .reveal-elem {
       opacity: 0;
@@ -1521,8 +1702,14 @@
     }
 
     /* ==========================================================================
-       16. RESPONSIVE ARCHITECTURE (MOBILE SPECIFIC ADJUSTMENTS)
+       17. RESPONSIVE ARCHITECTURE
        ========================================================================== */
+    @media (max-width: 1200px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 1024px) {
       .nav-links,
       .site-nav .btn-primary {
@@ -1556,13 +1743,9 @@
         order: -1;
         aspect-ratio: 16 / 9;
       }
-      .editorial-statement-grid {
+      .contact-hub-grid {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-      .contact-split-grid {
-        grid-template-columns: 1fr;
-        gap: 3.5rem;
+        gap: 3rem;
       }
       .why-editorial-grid {
         gap: 2.5rem 1.75rem;
@@ -1605,7 +1788,6 @@
         display: none;
       }
       
-      /* Mobile Hero Stats - Fully Centered & Stacked Cleanly */
       .hero-stats-band {
         grid-template-columns: 1fr;
         gap: 1.6rem;
@@ -1620,15 +1802,29 @@
         display: none;
       }
 
+      /* Mobile Projects Layout: Highly visual and comfortable card structure */
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .project-image-box {
+        aspect-ratio: 16 / 9.5;
+      }
+      .project-card-body {
+        padding: 1.25rem 1.15rem 1.4rem;
+      }
+      .project-card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .project-card-desc {
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
       .why-editorial-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-      }
-      .form-grid-inner {
-        grid-template-columns: 1fr;
-      }
-      .form-group.full-width {
-        grid-column: span 1;
       }
       .transition-guide-strip {
         flex-direction: column;
@@ -1638,6 +1834,15 @@
       .transition-guide-line {
         width: 100%;
         margin: 0;
+      }
+      .floating-contact-actions {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        left: auto;
+      }
+      .floating-btn {
+        width: 52px;
+        height: 52px;
       }
     }
 
@@ -1673,11 +1878,17 @@
         grid-column: 1 / 3;
       }
       .custom-cursor-dot,
-      .custom-cursor-ring {
+      .custom-cursor-ring,
+      .services-floating-preview {
         display: none !important;
       }
-      .contact-form-column {
-        padding: 1.35rem 1.1rem;
+      .contact-channel-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .channel-badge {
+        align-self: flex-end;
       }
     }
   </style>
@@ -1688,9 +1899,27 @@
   <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
   <div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
-  <!-- Interactive Floating Image Preview for Services (Desktop only) -->
+  <!-- Interactive Floating Image Preview Bound Directly to Cursor Safe-Zone -->
   <div class="services-floating-preview" id="servicePreview" aria-hidden="true">
-    <img id="servicePreviewImg" src="" alt="Service Technical Visual">
+    <img id="servicePreviewImg" src="" alt="Service Preview">
+  </div>
+
+  <!-- FLOATING QUICK CONTACT ICONS (RIGHT SIDE - OFFICIAL ICONS) -->
+  <div class="floating-contact-actions" role="region" aria-label="أزرار التواصل السريع">
+    <!-- Official WhatsApp Logo -->
+    <a href="https://wa.me/+971507760662" target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp" aria-label="تواصل عبر واتساب">
+      <span class="tooltip">واتساب</span>
+      <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.653.738 5.137 2.022 7.262L2.6 29.4l6.326-1.385A13.914 13.914 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.48-.684-6.294-1.865l-.45-.292-4.14.907.925-3.996-.312-.468A11.536 11.536 0 014.4 16C4.4 9.604 9.604 4.4 16 4.4S27.6 9.604 27.6 16 22.396 27.6 16 27.6zm6.89-8.732c-.378-.19-2.234-1.103-2.58-1.23-.346-.126-.598-.19-.85.19-.252.378-.977 1.23-1.198 1.482-.22.252-.44.284-.818.095-.378-.19-1.597-.588-3.042-1.877-1.124-1.003-1.884-2.242-2.104-2.62-.22-.378-.024-.582.166-.77.17-.17.378-.44.567-.661.189-.22.252-.378.378-.63.126-.252.063-.472-.032-.661-.094-.19-.85-2.05-1.165-2.808-.307-.738-.619-.638-.85-.65-.22-.01-.472-.013-.724-.013s-.661.095-1.008.472c-.346.378-1.322 1.293-1.322 3.152 0 1.86 1.354 3.656 1.543 3.908.19.252 2.664 4.07 6.455 5.706.902.39 1.606.623 2.155.797.906.288 1.73.247 2.382.15.727-.109 2.234-.914 2.549-1.796.315-.882.315-1.638.22-1.796-.094-.157-.346-.252-.724-.44z" fill="#FFFFFF"/>
+      </svg>
+    </a>
+    <!-- Phone Call Button -->
+    <a href="tel:+971507760662" class="floating-btn phone" aria-label="اتصال هاتفي مباشر">
+      <span class="tooltip">اتصال هاتفي</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
+        <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.054 15.054 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.57 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-.99-1z"/>
+      </svg>
+    </a>
   </div>
 
   <!-- ==========================================================================
@@ -1705,9 +1934,9 @@
 
       <nav class="nav-links" aria-label="التنقل الرئيسي">
         <a href="#services">خدماتنا</a>
-        <a href="#why-us">لماذا Iris Blue</a>
+        <a href="#projects">مشاريعنا</a>
+        <a href="#why-us">لماذا نحن</a>
         <a href="#sectors">القطاعات</a>
-        <a href="#vision">رؤيتنا</a>
         <a href="#contact">تواصل معنا</a>
       </nav>
 
@@ -1728,11 +1957,10 @@
   </header>
 
   <!-- ==========================================================================
-       MOBILE FULLSCREEN MENU WITH EXPLICIT CLOSE (X) BUTTON
+       MOBILE FULLSCREEN MENU WITH CLOSE (X) BUTTON
        ========================================================================== -->
   <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
     
-    <!-- Top Header inside Menu with Clear Close 'X' Button -->
     <div class="mobile-menu-top-bar">
       <div class="mobile-brand-title">
         IRIS BLUE
@@ -1746,7 +1974,6 @@
       </button>
     </div>
 
-    <!-- Navigation Links -->
     <ul class="mobile-menu-links">
       <li class="mobile-menu-item">
         <a href="#" class="mobile-link"><span class="nav-index">01</span>الرئيسية</a>
@@ -1755,24 +1982,26 @@
         <a href="#services" class="mobile-link"><span class="nav-index">02</span>خدماتنا</a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#why-us" class="mobile-link"><span class="nav-index">03</span>لماذا نحن</a>
+        <a href="#projects" class="mobile-link"><span class="nav-index">03</span>مشاريعنا</a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#sectors" class="mobile-link"><span class="nav-index">04</span>قطاعاتنا</a>
+        <a href="#why-us" class="mobile-link"><span class="nav-index">04</span>لماذا نحن</a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#contact" class="mobile-link"><span class="nav-index">05</span>تواصل معنا</a>
+        <a href="#sectors" class="mobile-link"><span class="nav-index">05</span>قطاعاتنا</a>
+      </li>
+      <li class="mobile-menu-item">
+        <a href="#contact" class="mobile-link"><span class="nav-index">06</span>تواصل معنا</a>
       </li>
     </ul>
 
-    <!-- Menu Bottom Details -->
     <div class="mobile-menu-footer">
       <div class="mobile-footer-meta">
         <span>Iris Blue Tech Solutions</span>
         <span style="color: var(--orange);">البنية التحتية الرقمية</span>
       </div>
       <a href="#contact" class="btn btn-primary mobile-link" style="width: 100%;">
-        <span>تواصل معنا</span>
+        <span>تواصل معنا فوراً</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
     </div>
@@ -1781,11 +2010,10 @@
   <main id="mainContent">
 
     <!-- ==========================================================================
-       SECTION 01: CINEMATIC HERO (CENTERED STATS & REFINED HEADINGS)
+       SECTION 01: HERO
        ========================================================================== -->
     <section class="hero-section" aria-label="مقدمة الصفحة الرئيسية">
       
-      <!-- Interactive Particles Layer -->
       <div id="particles-js" aria-hidden="true"></div>
 
       <div class="container">
@@ -1812,8 +2040,8 @@
                 <span>تواصل معنا</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               </a>
-              <a href="#services" class="btn btn-secondary">
-                <span>اكتشف خدماتنا</span>
+              <a href="#projects" class="btn btn-secondary">
+                <span>استعرض مشاريعنا</span>
               </a>
             </div>
           </div>
@@ -1821,7 +2049,7 @@
           <div class="hero-visual-stage reveal-elem">
             <div class="hero-visual-accent-line" aria-hidden="true"></div>
             <div class="hero-image-container">
-              <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1400&q=85" alt="البنية التحتية للألياف الضوئية والاتصالات" width="1400" height="1680" fetchpriority="high">
+              <img src="11.png" alt="البنية التحتية للألياف الضوئية والاتصالات" width="1400" height="1680" fetchpriority="high">
             </div>
             <div class="hero-visual-badge">
               <div class="hero-visual-badge-text">
@@ -1860,7 +2088,7 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 02: EDITORIAL INTRODUCTION
+       SECTION 02: INTRODUCTION
        ========================================================================== -->
     <section class="intro-section" id="about" aria-label="عن الشركة وقدراتنا">
       <div class="container">
@@ -1883,7 +2111,7 @@
 
           <div class="intro-visual-column reveal-elem">
             <div class="intro-image-frame">
-              <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80" alt="مهندسو البنية التحتية الميدانية في موقع العمل" loading="lazy">
+              <img src="111.png" alt="مهندسو البنية التحتية الميدانية في موقع العمل" loading="lazy">
               <div class="intro-corner-graphic" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </div>
@@ -2001,7 +2229,138 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 05: WHY IRIS BLUE
+       SECTION 05: PROJECTS SHOWCASE (PREMIUM MODERN DESIGN & CLEAR IMAGES)
+       ========================================================================== -->
+    <section class="projects-section" id="projects" aria-label="سجل مشاريعنا الهندسية">
+      <div class="container">
+        
+        <div class="projects-header reveal-elem">
+          <div>
+            <div class="section-eyebrow">سجل الإنجاز والخبرات</div>
+            <h2 class="projects-title">مشاريعنا</h2>
+          </div>
+          <p class="projects-subtitle">
+            نخبة من المشاريع الاستراتيجية والتنفيذية المنفذة في شبكات الألياف الضوئية، المسارات الفقارية، وتجهيز مراكز البيانات عالية الاعتمادية.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 01 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">الألياف الضوئية OSP</span>
+              <img src="1.jpeg" alt="1.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">الشبكة الفقارية الضوئية – مشروع شركة جاد</h3>
+              <p class="project-card-desc">الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.</p>
+            </div>
+          </article>
+
+          <!-- Project 02 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">إعادة تأهيل وتطوير</span>
+              <img src="2.jpeg" alt="2.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">إعادة تأهيل كابل حلب – دبسي عفنان</h3>
+              <p class="project-card-desc">الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.</p>
+            </div>
+          </article>
+
+          <!-- Project 03 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">مسارات الربط الإقليمي</span>
+              <img src="3.jpeg" alt="3.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">ربط حلب بمحافظة حماه</h3>
+              <p class="project-card-desc">الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.</p>
+            </div>
+          </article>
+
+          <!-- Project 04 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">شبكات النفاذ FTTH</span>
+              <img src="4.jpeg" alt="4.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">مشاريع FTTH – مدينة حلب</h3>
+              <p class="project-card-desc">تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.</p>
+            </div>
+          </article>
+
+          <!-- Project 05 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">مراكز بيانات طبية</span>
+              <img src="5.jpeg" alt="5.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">مركز بيانات المشفى الطلياني – دمشق</h3>
+              <p class="project-card-desc">تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.</p>
+            </div>
+          </article>
+
+          <!-- Project 06 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">مراكز بيانات وطنية</span>
+              <img src="6.jpeg" alt="6.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق</h3>
+              <p class="project-card-desc">الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.</p>
+            </div>
+          </article>
+
+          <!-- Project 07 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">منشآت حيوية</span>
+              <img src="7.jpeg" alt="7.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق</h3>
+              <p class="project-card-desc">الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.</p>
+            </div>
+          </article>
+
+          <!-- Project 08 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">قطاع صناعي واستثماري</span>
+              <img src="8.jpeg" alt="8.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">مركز بيانات شركة مسالكو – عدرا - ريف دمشق</h3>
+              <p class="project-card-desc">تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.</p>
+            </div>
+          </article>
+
+          <!-- Project 09 -->
+          <article class="project-card reveal-elem">
+            <div class="project-image-box">
+              <span class="project-tag-pill">دراسات واستشارات فنية</span>
+              <img src="9.jpeg" alt="9.jpg" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <h3 class="project-card-title">دراسة مركز بيانات معمل السكر – حسيا - ريف حمص</h3>
+              <p class="project-card-desc">إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       SECTION 06: WHY IRIS BLUE
        ========================================================================== -->
     <section class="why-section" id="why-us" aria-label="لماذا نحن">
       <div class="container">
@@ -2053,7 +2412,7 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 06: STRATEGIC SECTORS
+       SECTION 07: STRATEGIC SECTORS
        ========================================================================== -->
     <section class="sectors-section" id="sectors" aria-label="القطاعات التي نخدمها">
       <div class="container">
@@ -2065,7 +2424,7 @@
 
             <ul class="sectors-list" role="list">
               
-              <li class="sector-item is-active" data-image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80">
+              <li class="sector-item is-active" data-image="11.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
                   مشاريع البنية التحتية الوطنية والاستراتيجية
@@ -2075,7 +2434,7 @@
                 </span>
               </li>
 
-              <li class="sector-item" data-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+              <li class="sector-item" data-image="12.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
                   شركات الاتصالات ومزودو خدمات الإنترنت
@@ -2085,7 +2444,7 @@
                 </span>
               </li>
 
-              <li class="sector-item" data-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+              <li class="sector-item" data-image="13.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
                   مراكز البيانات
@@ -2095,7 +2454,7 @@
                 </span>
               </li>
 
-              <li class="sector-item" data-image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80">
+              <li class="sector-item" data-image="14.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
                   الجهات الحكومية والمؤسسات العامة
@@ -2105,7 +2464,7 @@
                 </span>
               </li>
 
-              <li class="sector-item" data-image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80">
+              <li class="sector-item" data-image="15.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
                   المشاريع الكبرى والمنشآت الحيوية
@@ -2128,7 +2487,7 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 07: CINEMATIC FULL VIEWPORT MOMENT
+       SECTION 08: CINEMATIC MOMENT
        ========================================================================== -->
     <section class="cinematic-moment-section" aria-label="رؤية التنفيذ">
       <div class="cinematic-bg-media">
@@ -2145,120 +2504,106 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 08: DRAMATIC BLACK EDITORIAL SPREAD
+       SECTION 09: STRATEGIC CONTACT HUB (ENGAGING CTA & OFFICIAL CHANNELS)
        ========================================================================== -->
-    <section class="editorial-statement-section" id="vision" aria-label="رؤية التطوير الهندسي">
+    <section class="contact-hub-section" id="contact" aria-label="تواصل مع فريقنا">
       <div class="container">
-        <div class="editorial-statement-grid">
+        <div class="contact-hub-grid">
 
-          <div class="reveal-elem">
-            <h2 class="dramatic-typography">
-              من الفكرة<br>
-              إلى التنفيذ<span class="color-dot">.</span>
-            </h2>
-          </div>
-
-          <div class="editorial-aside-content reveal-elem">
-            <p class="editorial-aside-text">
-              خبرة فنية وقدرات تنفيذية تمتد عبر مراحل المشروع المختلفة. نضمن الدقة في كل مسار والتوافق مع أعلى المعايير الهندسية المعمول بها عالمياً.
-            </p>
-            <a href="#contact" class="btn btn-primary">
-              <span>ابدأ مشروعك معنا</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================================================
-       SECTION 09: CONTACT FORM
-       ========================================================================== -->
-    <section class="contact-section" id="contact" aria-label="تواصل معنا">
-      <div class="container">
-        <div class="contact-split-grid">
-
-          <div class="contact-pitch-column reveal-elem">
-            <div class="section-eyebrow">بدء التعاون</div>
-            <h2 class="contact-main-heading">
+          <div class="contact-hub-info reveal-elem">
+            <div class="section-eyebrow">قنوات التواصل المباشرة</div>
+            <h2 class="contact-hub-title">
               لديك مشروع يحتاج<br>
               إلى بنية تحتية موثوقة؟
             </h2>
-            <p class="contact-lead-text">
-              شاركنا تفاصيل مشروعك، وتواصل مع فريق Iris Blue لمناقشة احتياجات مشروعك الفنية والجدول الزمني للتنفيذ.
+            <p class="contact-hub-desc">
+              تواصل مباشرة مع مهندسي واستشاريي Iris Blue لمناقشة نطاق العمل، دراسة المخططات الفنية، وتقديم الحلول الهندسية المناسبة لمشروعك فوراً.
             </p>
 
-            <div class="contact-trust-markers">
-              <div class="trust-marker-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>معايير تنفيذ مطابقة للمواصفات القياسية</span>
-              </div>
-              <div class="trust-marker-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>جاهزية لتغطية مشاريع البنية التحتية الكبرى</span>
-              </div>
-              <div class="trust-marker-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>تخطيط دقيق وتطبيق تقنيات المسح الميداني GPR</span>
-              </div>
+            <div class="contact-actions-list">
+              
+              <!-- WhatsApp Channel -->
+              <a href="https://wa.me/971507760662" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                <div class="channel-meta">
+                  <div class="channel-icon whatsapp">
+                    <!-- Official SVG Logo -->
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.653.738 5.137 2.022 7.262L2.6 29.4l6.326-1.385A13.914 13.914 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.48-.684-6.294-1.865l-.45-.292-4.14.907.925-3.996-.312-.468A11.536 11.536 0 014.4 16C4.4 9.604 9.604 4.4 16 4.4S27.6 9.604 27.6 16 22.396 27.6 16 27.6zm6.89-8.732c-.378-.19-2.234-1.103-2.58-1.23-.346-.126-.598-.19-.85.19-.252.378-.977 1.23-1.198 1.482-.22.252-.44.284-.818.095-.378-.19-1.597-.588-3.042-1.877-1.124-1.003-1.884-2.242-2.104-2.62-.22-.378-.024-.582.166-.77.17-.17.378-.44.567-.661.189-.22.252-.378.378-.63.126-.252.063-.472-.032-.661-.094-.19-.85-2.05-1.165-2.808-.307-.738-.619-.638-.85-.65-.22-.01-.472-.013-.724-.013s-.661.095-1.008.472c-.346.378-1.322 1.293-1.322 3.152 0 1.86 1.354 3.656 1.543 3.908.19.252 2.664 4.07 6.455 5.706.902.39 1.606.623 2.155.797.906.288 1.73.247 2.382.15.727-.109 2.234-.914 2.549-1.796.315-.882.315-1.638.22-1.796-.094-.157-.346-.252-.724-.44z" fill="#FFFFFF"/>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h3>محادثة واتساب مباشرة</h3>
+                    <p>+971 50 77 60662</p>
+                  </div>
+                </div>
+                <div class="channel-badge">
+                  <span>تواصل فوري</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+              </a>
+
+              <!-- Phone Call Channel -->
+              <a href="tel:+971507760662" class="contact-channel-card">
+                <div class="channel-meta">
+                  <div class="channel-icon phone">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF">
+                      <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.054 15.054 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.57 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-.99-1z"/>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h3>الاتصال الهاتفي المباشر</h3>
+                    <p>+971 50 77 60662</p>
+                  </div>
+                </div>
+                <div class="channel-badge">
+                  <span>اتصال هاتفي</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+              </a>
+
+              <!-- Official Technical Email -->
+              <a href="mailto:info@iris-blue.net" class="contact-channel-card">
+                <div class="channel-meta">
+                  <div class="channel-icon email">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  </div>
+                  <div class="channel-details">
+                    <h3>المراسلات الهندسية والعروض</h3>
+                    <p>info@iris-blue.net</p>
+                  </div>
+                </div>
+                <div class="channel-badge">
+                  <span>إرسال بريد</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+              </a>
+
             </div>
           </div>
 
-          <div class="contact-form-column reveal-elem">
-            <form id="strategicContactForm" onsubmit="handleFormSubmit(event)">
-              
-              <div class="form-grid-inner">
-                
-                <div class="form-group">
-                  <label class="form-label" for="clientName">الاسم</label>
-                  <input class="form-input" type="text" id="clientName" name="clientName" required placeholder="الاسم الكامل" autocomplete="name">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="companyName">الشركة / الجهة</label>
-                  <input class="form-input" type="text" id="companyName" name="companyName" required placeholder="اسم المنشأة" autocomplete="organization">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="clientEmail">البريد الإلكتروني</label>
-                  <input class="form-input" type="email" id="clientEmail" name="clientEmail" required placeholder="email@company.com" autocomplete="email">
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label" for="clientPhone">رقم الهاتف</label>
-                  <input class="form-input" type="tel" id="clientPhone" name="clientPhone" required placeholder="+966 ..." autocomplete="tel" dir="ltr" style="text-align: right;">
-                </div>
-
-                <div class="form-group full-width">
-                  <label class="form-label" for="projectType">نوع المشروع</label>
-                  <select class="form-select" id="projectType" name="projectType" required>
-                    <option value="" disabled selected>اختر نوع المشروع أو الخدمة المطلوبة</option>
-                    <option value="telecom">البنية التحتية للاتصالات والشبكات</option>
-                    <option value="osp">OSP &amp; Fiber Optics</option>
-                    <option value="civil">الأعمال المدنية للاتصالات</option>
-                    <option value="gpr">المسح وتحديد الخدمات المدفونة (GPR)</option>
-                    <option value="datacenter">مراكز البيانات</option>
-                    <option value="equipment">المعدات والآليات الهندسية</option>
-                    <option value="other">مشروع استراتيجي متكامل</option>
-                  </select>
-                </div>
-
-                <div class="form-group full-width">
-                  <label class="form-label" for="projectMessage">رسالتك</label>
-                  <textarea class="form-textarea" id="projectMessage" name="projectMessage" required placeholder="وضح موجز المشروع، النطاق الجغرافي والمتطلبات الفنية..."></textarea>
-                </div>
-
-                <div class="form-group full-width">
-                  <button type="submit" class="form-submit-btn" id="submitBtn">
-                    <span>إرسال الطلب</span>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                  </button>
-                </div>
-
-              </div>
-
-            </form>
+          <!-- Executive Technical Box -->
+          <div class="contact-executive-box reveal-elem">
+            <h3 class="exec-box-title">جاهزية تشغيلية على مدار الساعة</h3>
+            <p class="exec-box-desc">
+              نمتلك الكوادر المؤهلة والآليات الهندسية التخصصية لدعم كافة مراحل البنية التحتية في مختلف المحافظات والمشاريع الكبرى.
+            </p>
+            <ul class="exec-trust-list">
+              <li class="exec-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>استجابة فنية سريعة لعروض الأسعار والمخططات</span>
+              </li>
+              <li class="exec-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>إشراف هندسي ميداني وفق المعايير العالمية</span>
+              </li>
+              <li class="exec-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>اعتمادية تامة في تنفيذ المشاريع الحساسة والاستراتيجية</span>
+              </li>
+            </ul>
           </div>
 
         </div>
@@ -2295,10 +2640,10 @@
         <div>
           <div class="footer-nav-title">روابط سريعة</div>
           <ul class="footer-nav-list">
-            <li><a href="#about">منهجية العمل</a></li>
+            <li><a href="#projects">سجل المشاريع المنفذة</a></li>
             <li><a href="#why-us">لماذا Iris Blue</a></li>
             <li><a href="#sectors">القطاعات المستهدفة</a></li>
-            <li><a href="#contact">طلب استشارة فنية</a></li>
+            <li><a href="#contact">تواصل معنا فوراً</a></li>
           </ul>
         </div>
 
@@ -2313,7 +2658,7 @@
   </footer>
 
   <!-- ==========================================================================
-       VANILLA JAVASCRIPT: PARTICLES + MOBILE MENU + BEHAVIORS
+       VANILLA JAVASCRIPT
        ========================================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -2400,7 +2745,7 @@
       }
 
       /* ------------------------------------------------------------------------
-         02. BULLETPROOF MOBILE MENU OPEN & CLOSE (X)
+         02. BULLETPROOF MOBILE MENU
          ------------------------------------------------------------------------ */
       const menuToggle = document.getElementById('menuToggle');
       const menuCloseBtn = document.getElementById('menuCloseBtn');
@@ -2421,26 +2766,22 @@
         document.body.style.overflow = '';
       };
 
-      // Open from hamburger button
       menuToggle.addEventListener('click', (e) => {
         e.preventDefault();
         openMobileMenu();
       });
 
-      // Close from explicit X button
       menuCloseBtn.addEventListener('click', (e) => {
         e.preventDefault();
         closeMobileMenu();
       });
 
-      // Close upon clicking any menu link
       mobileLinks.forEach((link) => {
         link.addEventListener('click', () => {
           closeMobileMenu();
         });
       });
 
-      // Close with Escape key
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
           closeMobileMenu();
@@ -2473,7 +2814,7 @@
         };
         requestAnimationFrame(renderCursor);
 
-        const hoverTargets = document.querySelectorAll('a, button, input, select, textarea, .service-row, .sector-item');
+        const hoverTargets = document.querySelectorAll('a, button, .service-row, .sector-item, .project-card');
         hoverTargets.forEach((target) => {
           target.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
           target.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
@@ -2554,28 +2895,39 @@
       }
 
       /* ------------------------------------------------------------------------
-         07. Desktop Service Preview Floating Image
+         07. BOUNDED CURSOR-SAFE SERVICES IMAGE PREVIEW
          ------------------------------------------------------------------------ */
       const serviceRows = document.querySelectorAll('.service-row');
       const servicePreview = document.getElementById('servicePreview');
       const servicePreviewImg = document.getElementById('servicePreviewImg');
 
       if (!isTouch && servicePreview && servicePreviewImg) {
-        let previewTargetX = 0, previewTargetY = 0;
-        let previewCurrentX = 0, previewCurrentY = 0;
+        let mouseClientX = 0, mouseClientY = 0;
+        let previewX = 0, previewY = 0;
+        const boxWidth = 280;
+        const boxHeight = 190;
+        const offset = 20;
 
         window.addEventListener('mousemove', (e) => {
-          previewTargetX = e.clientX + 30;
-          previewTargetY = e.clientY - 120;
-        });
+          mouseClientX = e.clientX;
+          mouseClientY = e.clientY;
 
-        const updatePreviewPos = () => {
-          previewCurrentX += (previewTargetX - previewCurrentX) * 0.12;
-          previewCurrentY += (previewTargetY - previewCurrentY) * 0.12;
-          servicePreview.style.transform = `translate(${previewCurrentX}px, ${previewCurrentY}px)`;
-          requestAnimationFrame(updatePreviewPos);
-        };
-        requestAnimationFrame(updatePreviewPos);
+          let targetX = mouseClientX + offset;
+          let targetY = mouseClientY - (boxHeight / 2);
+
+          if (targetX + boxWidth > window.innerWidth - 15) {
+            targetX = mouseClientX - boxWidth - offset;
+          }
+
+          if (targetY < 20) targetY = 20;
+          if (targetY + boxHeight > window.innerHeight - 20) {
+            targetY = window.innerHeight - boxHeight - 20;
+          }
+
+          previewX = targetX;
+          previewY = targetY;
+          servicePreview.style.transform = `translate(${previewX}px, ${previewY}px)`;
+        });
 
         serviceRows.forEach((row) => {
           row.addEventListener('mouseenter', () => {
@@ -2615,31 +2967,6 @@
       });
 
     });
-
-    /* ------------------------------------------------------------------------
-       09. Form Submission Feedback
-       ------------------------------------------------------------------------ */
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.disabled = true;
-      submitBtn.style.backgroundColor = 'var(--blue-dark)';
-      submitBtn.innerHTML = '<span>جاري إرسال الطلب...</span>';
-
-      setTimeout(() => {
-        submitBtn.style.backgroundColor = '#16a34a';
-        submitBtn.innerHTML = '<span>تم استلام طلبك بنجاح</span>';
-
-        setTimeout(() => {
-          event.target.reset();
-          submitBtn.disabled = false;
-          submitBtn.style.backgroundColor = '';
-          submitBtn.innerHTML = originalText;
-        }, 3200);
-      }, 950);
-    }
   </script>
 </body>
 </html>
