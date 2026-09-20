@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Iris Blue | حلول البنية التحتية الرقمية والاتصالات ومراكز البيانات</title>
-  <meta name="description" content="ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى شبكات الألياف الضوئية ومراكز البيانات.">
+  <title data-i18n="meta_title">Iris Blue | حلول البنية التحتية الرقمية والاتصالات ومراكز البيانات</title>
+  <meta name="description" data-i18n-meta="meta_desc" content="ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى شبكات الألياف الضوئية ومراكز البيانات.">
 
-  <!-- Google Fonts: Cairo -->
+  <!-- Google Fonts: Cairo & Inter for English -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Particles.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -33,11 +33,15 @@
       --text-muted: #5e6472;
       --text-muted-dark: #9da6b9;
       
-      --font-cairo: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --container-max: 1540px;
       --site-pad: clamp(1.25rem, 5vw, 4.5rem);
       
       --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html[dir="ltr"] {
+      --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     /* ==========================================================================
@@ -55,7 +59,7 @@
       scroll-behavior: smooth;
       background-color: var(--white);
       color: var(--black);
-      font-family: var(--font-cairo);
+      font-family: var(--font-family);
       overflow-x: hidden;
       width: 100%;
     }
@@ -67,6 +71,7 @@
       font-size: 1.05rem;
       background-color: var(--white);
       position: relative;
+      font-family: var(--font-family);
     }
 
     img {
@@ -146,7 +151,7 @@
     }
 
     /* ==========================================================================
-       04. NAVIGATION & HAMBURGER
+       04. NAVIGATION & BRAND LOGO
        ========================================================================== */
     .site-nav {
       position: fixed;
@@ -154,13 +159,13 @@
       left: 0;
       width: 100%;
       z-index: 1000;
-      padding: 1.4rem var(--site-pad);
+      padding: 1.25rem var(--site-pad);
       transition: padding 0.4s var(--ease-editorial), background-color 0.4s var(--ease-editorial), border-color 0.4s ease, box-shadow 0.4s ease;
       border-bottom: 1px solid transparent;
     }
 
     .site-nav.scrolled {
-      padding: 0.9rem var(--site-pad);
+      padding: 0.8rem var(--site-pad);
       background-color: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -176,29 +181,25 @@
       justify-content: space-between;
     }
 
-    .brand-logo {
-      font-weight: 900;
-      font-size: clamp(1.2rem, 2vw, 1.45rem);
-      letter-spacing: -0.02em;
-      color: var(--black);
+    /* Responsive Logo image element */
+    .brand-logo-link {
       display: inline-flex;
-      align-items: baseline;
-      gap: 0.35rem;
+      align-items: center;
       position: relative;
       z-index: 1001;
+      text-decoration: none;
     }
 
-    .brand-logo .dot {
-      width: 7px;
-      height: 7px;
-      background-color: var(--orange);
-      border-radius: 50%;
-      display: inline-block;
+    .brand-logo-img {
+      height: 58px;
+      width: auto;
+      max-width: 175px;
+      object-fit: contain;
       transition: transform 0.3s var(--ease-editorial);
     }
 
-    .brand-logo:hover .dot {
-      transform: scale(1.4);
+    .brand-logo-link:hover .brand-logo-img {
+      transform: scale(1.03);
     }
 
     .nav-links {
@@ -227,6 +228,11 @@
       transition: width 0.3s var(--ease-editorial);
     }
 
+    html[dir="ltr"] .nav-links a::after {
+      right: auto;
+      left: 0;
+    }
+
     .nav-links a:hover::after {
       width: 100%;
     }
@@ -234,7 +240,35 @@
     .nav-action-wrapper {
       display: flex;
       align-items: center;
-      gap: 1.25rem;
+      gap: 0.9rem;
+    }
+
+    /* Language Switcher Button */
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--black);
+      border: 1px solid var(--border-light);
+      background-color: var(--white);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background-color: var(--blue-subtle);
+    }
+
+    .lang-btn svg {
+      width: 15px;
+      height: 15px;
     }
 
     .btn {
@@ -297,6 +331,11 @@
       font-size: 0.85rem;
     }
 
+    /* Directional Flip for Icons in LTR */
+    html[dir="ltr"] .flip-on-ltr {
+      transform: rotate(180deg);
+    }
+
     /* Hamburger Button */
     .menu-toggle {
       display: none;
@@ -323,7 +362,7 @@
     }
 
     .menu-toggle span:nth-child(1) { width: 22px; }
-    .menu-toggle span:nth-child(2) { width: 16px; margin-right: auto; margin-left: 5px; }
+    .menu-toggle span:nth-child(2) { width: 16px; margin-inline-start: auto; margin-inline-end: 5px; }
     .menu-toggle span:nth-child(3) { width: 20px; }
 
     /* ==========================================================================
@@ -344,8 +383,12 @@
       overflow-y: auto;
     }
 
+    html[dir="ltr"] .mobile-menu-overlay {
+      clip-path: circle(0% at top right);
+    }
+
     .mobile-menu-overlay.is-open {
-      clip-path: circle(150% at top left);
+      clip-path: circle(150% at top center) !important;
       pointer-events: auto;
     }
 
@@ -354,29 +397,26 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .mobile-brand-title {
-      font-weight: 900;
-      font-size: 1.35rem;
-      color: var(--white);
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.35rem;
+    .mobile-brand-img {
+      height: 38px;
+      width: auto;
+      max-width: 150px;
+      object-fit: contain;
     }
 
-    .mobile-brand-title .dot {
-      width: 7px;
-      height: 7px;
-      background-color: var(--orange);
-      border-radius: 50%;
+    .mobile-top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
     }
 
     .mobile-close-btn {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.22);
@@ -414,13 +454,6 @@
       transform: translateY(0);
     }
 
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(1) { transition-delay: 0.12s; }
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(2) { transition-delay: 0.18s; }
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(3) { transition-delay: 0.24s; }
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(4) { transition-delay: 0.30s; }
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(5) { transition-delay: 0.36s; }
-    .mobile-menu-overlay.is-open .mobile-menu-item:nth-child(6) { transition-delay: 0.42s; }
-
     .mobile-menu-links a {
       font-size: clamp(1.35rem, 5vw, 1.95rem);
       font-weight: 800;
@@ -440,6 +473,11 @@
     .mobile-menu-links a:active {
       color: var(--white);
       transform: translateX(-6px);
+    }
+
+    html[dir="ltr"] .mobile-menu-links a:hover,
+    html[dir="ltr"] .mobile-menu-links a:active {
+      transform: translateX(6px);
     }
 
     .mobile-menu-footer {
@@ -590,6 +628,13 @@
       z-index: 1;
     }
 
+    html[dir="ltr"] .hero-visual-accent-line {
+      right: auto;
+      left: -18px;
+      border-right: none;
+      border-left: 2px solid var(--blue);
+    }
+
     .hero-visual-badge {
       position: absolute;
       bottom: 2rem;
@@ -601,6 +646,13 @@
       z-index: 4;
       border-right: 3px solid var(--orange);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    html[dir="ltr"] .hero-visual-badge {
+      left: auto;
+      right: -2rem;
+      border-right: none;
+      border-left: 3px solid var(--orange);
     }
 
     .hero-visual-badge-text {
@@ -637,6 +689,11 @@
       height: 70%;
       width: 1px;
       background-color: var(--border-light);
+    }
+
+    html[dir="ltr"] .hero-stat-cell:not(:last-child)::after {
+      left: auto;
+      right: 0;
     }
 
     .hero-stat-num {
@@ -753,6 +810,11 @@
       color: var(--white);
     }
 
+    html[dir="ltr"] .intro-corner-graphic {
+      right: auto;
+      left: 0;
+    }
+
     .transition-guide-strip {
       display: flex;
       align-items: center;
@@ -779,6 +841,11 @@
       height: 100%;
       width: 45%;
       background-color: var(--blue);
+    }
+
+    html[dir="ltr"] .transition-guide-line::after {
+      right: auto;
+      left: 0;
     }
 
     /* ==========================================================================
@@ -864,12 +931,16 @@
       font-size: clamp(1.1rem, 1.5vw, 1.45rem);
       font-weight: 800;
       color: var(--black);
-      padding-left: 1.25rem;
+      padding-inline-end: 1.25rem;
     }
 
     .service-row:hover .service-title {
       color: var(--blue);
       transform: translateX(-6px);
+    }
+
+    html[dir="ltr"] .service-row:hover .service-title {
+      transform: translateX(6px);
     }
 
     .service-body {
@@ -901,7 +972,11 @@
       stroke: var(--orange);
     }
 
-    /* Floating Image: Safe near-cursor rendering */
+    html[dir="ltr"] .service-row:hover .service-arrow svg {
+      transform: translateX(6px);
+    }
+
+    /* Floating Image */
     .services-floating-preview {
       position: fixed;
       width: 280px;
@@ -944,10 +1019,15 @@
       background-color: var(--orange);
     }
 
+    html[dir="ltr"] .blue-statement-section::after {
+      right: auto;
+      left: 0;
+    }
+
     .statement-content-wrap {
       max-width: 1000px;
       margin-inline: auto;
-      text-align: right;
+      text-align: start;
     }
 
     .statement-quote-mark {
@@ -982,7 +1062,7 @@
     }
 
     /* ==========================================================================
-       09. SECTION 05: PROJECTS SHOWCASE (PREMIUM CARD & CLEAR IMAGERY)
+       09. SECTION 05: PROJECTS SHOWCASE
        ========================================================================== */
     .projects-section {
       padding: clamp(5rem, 11vh, 9rem) 0;
@@ -1021,7 +1101,6 @@
       gap: 2rem;
     }
 
-    /* New Architectural Card: Image Remains Completely Visible & Clear */
     .project-card {
       background: var(--white);
       border: 1px solid var(--border-light);
@@ -1070,6 +1149,11 @@
       border-radius: 3px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       z-index: 2;
+    }
+
+    html[dir="ltr"] .project-tag-pill {
+      right: auto;
+      left: 1rem;
     }
 
     .project-card-body {
@@ -1167,6 +1251,10 @@
       transform: translateX(-4px);
     }
 
+    html[dir="ltr"] .why-item:hover .why-item-num {
+      transform: translateX(4px);
+    }
+
     .why-item-title {
       font-size: clamp(1.2rem, 1.6vw, 1.55rem);
       font-weight: 800;
@@ -1251,6 +1339,10 @@
       transform: translateX(10px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       color: var(--blue);
+    }
+
+    html[dir="ltr"] .sector-item-arrow {
+      transform: translateX(-10px);
     }
 
     .sector-item:hover .sector-item-arrow,
@@ -1460,7 +1552,7 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       direction: ltr;
-      text-align: right;
+      text-align: start;
       font-weight: 600;
     }
 
@@ -1538,12 +1630,12 @@
     }
 
     /* ==========================================================================
-       14. FLOATING ACTION ICONS (ON THE RIGHT WITH OFFICIAL LOGOS)
+       14. FLOATING ACTION ICONS (RIGHT SIDE)
        ========================================================================== */
     .floating-contact-actions {
       position: fixed;
       bottom: 2rem;
-      right: 2rem; /* Positioned Strictly on the Right */
+      right: 2rem;
       left: auto;
       display: flex;
       flex-direction: column;
@@ -1576,13 +1668,12 @@
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
     }
 
-    /* Tooltip positioned to the left since buttons are on the right */
     .floating-btn .tooltip {
       position: absolute;
-      left: calc(100% + 14px);
-      right: auto;
+      right: calc(100% + 14px);
+      left: auto;
       top: 50%;
-      transform: translateY(-50%) translateX(-10px);
+      transform: translateY(-50%) translateX(10px);
       background-color: var(--black);
       color: var(--white);
       padding: 0.4rem 0.85rem;
@@ -1618,15 +1709,12 @@
       border-bottom: 1px solid var(--dark-border);
     }
 
-    .footer-brand-title {
-      font-size: 1.75rem;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.85rem;
-    }
-
-    .footer-brand-title span {
-      color: var(--orange);
+    .footer-brand-logo-img {
+      height: 52px;
+      width: auto;
+      max-width: 190px;
+      object-fit: contain;
+      margin-bottom: 1.25rem;
     }
 
     .footer-brand-desc {
@@ -1654,12 +1742,12 @@
     .footer-nav-list a {
       color: var(--text-muted-dark);
       font-size: 0.9rem;
-      transition: color 0.25s ease, padding-right 0.25s ease;
+      transition: color 0.25s ease, padding-inline-start 0.25s ease;
     }
 
     .footer-nav-list a:hover {
       color: var(--white);
-      padding-right: 6px;
+      padding-inline-start: 6px;
     }
 
     .footer-bottom-bar {
@@ -1775,13 +1863,19 @@
       .hero-section {
         padding-top: 6.25rem;
       }
+      .brand-logo-img {
+        height: 44px;
+        max-width: 140px;
+      }
       .hero-visual-badge {
         position: relative;
         bottom: auto;
         left: auto;
+        right: auto;
         margin-top: 1rem;
         max-width: 100%;
         border-right: none;
+        border-left: none;
         border-top: 3px solid var(--orange);
       }
       .hero-visual-accent-line {
@@ -1802,7 +1896,6 @@
         display: none;
       }
 
-      /* Mobile Projects Layout: Highly visual and comfortable card structure */
       .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -1851,7 +1944,11 @@
         --site-pad: 1.15rem;
       }
       .site-nav {
-        padding: 1rem var(--site-pad);
+        padding: 0.9rem var(--site-pad);
+      }
+      .brand-logo-img {
+        height: 42px;
+        max-width: 125px;
       }
       .hero-headline {
         font-size: 1.75rem;
@@ -1871,7 +1968,7 @@
         display: none;
       }
       .service-title {
-        padding-left: 0;
+        padding-inline-end: 0;
         font-size: 1.15rem;
       }
       .service-body {
@@ -1905,17 +2002,17 @@
   </div>
 
   <!-- FLOATING QUICK CONTACT ICONS (RIGHT SIDE - OFFICIAL ICONS) -->
-  <div class="floating-contact-actions" role="region" aria-label="أزرار التواصل السريع">
+  <div class="floating-contact-actions" role="region" aria-label="Quick Contact Actions">
     <!-- Official WhatsApp Logo -->
-    <a href="https://wa.me/+971507760662" target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp" aria-label="تواصل عبر واتساب">
-      <span class="tooltip">واتساب</span>
+    <a href="https://wa.me/+971507760662" target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp" aria-label="WhatsApp">
+      <span class="tooltip" data-i18n="float_wa">واتساب</span>
       <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.653.738 5.137 2.022 7.262L2.6 29.4l6.326-1.385A13.914 13.914 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.48-.684-6.294-1.865l-.45-.292-4.14.907.925-3.996-.312-.468A11.536 11.536 0 014.4 16C4.4 9.604 9.604 4.4 16 4.4S27.6 9.604 27.6 16 22.396 27.6 16 27.6zm6.89-8.732c-.378-.19-2.234-1.103-2.58-1.23-.346-.126-.598-.19-.85.19-.252.378-.977 1.23-1.198 1.482-.22.252-.44.284-.818.095-.378-.19-1.597-.588-3.042-1.877-1.124-1.003-1.884-2.242-2.104-2.62-.22-.378-.024-.582.166-.77.17-.17.378-.44.567-.661.189-.22.252-.378.378-.63.126-.252.063-.472-.032-.661-.094-.19-.85-2.05-1.165-2.808-.307-.738-.619-.638-.85-.65-.22-.01-.472-.013-.724-.013s-.661.095-1.008.472c-.346.378-1.322 1.293-1.322 3.152 0 1.86 1.354 3.656 1.543 3.908.19.252 2.664 4.07 6.455 5.706.902.39 1.606.623 2.155.797.906.288 1.73.247 2.382.15.727-.109 2.234-.914 2.549-1.796.315-.882.315-1.638.22-1.796-.094-.157-.346-.252-.724-.44z" fill="#FFFFFF"/>
       </svg>
     </a>
     <!-- Phone Call Button -->
-    <a href="tel:+971507760662" class="floating-btn phone" aria-label="اتصال هاتفي مباشر">
-      <span class="tooltip">اتصال هاتفي</span>
+    <a href="tel:+971507760662" class="floating-btn phone" aria-label="Phone">
+      <span class="tooltip" data-i18n="float_call">اتصال هاتفي</span>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
         <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.054 15.054 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.57 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-.99-1z"/>
       </svg>
@@ -1927,27 +2024,36 @@
        ========================================================================== -->
   <header class="site-nav" id="mainNav" role="banner">
     <div class="nav-inner">
-      <a href="#" class="brand-logo" aria-label="Iris Blue - الرئيسية">
-        IRIS BLUE
-        <span class="dot" aria-hidden="true"></span>
+      <a href="#" class="brand-logo-link" aria-label="Iris Blue - Home">
+        <img src="Logo.png" alt="Iris Blue" class="brand-logo-img">
       </a>
 
-      <nav class="nav-links" aria-label="التنقل الرئيسي">
-        <a href="#services">خدماتنا</a>
-        <a href="#projects">مشاريعنا</a>
-        <a href="#why-us">لماذا نحن</a>
-        <a href="#sectors">القطاعات</a>
-        <a href="#contact">تواصل معنا</a>
+      <nav class="nav-links" aria-label="Main Navigation">
+        <a href="#services" data-i18n="nav_services">خدماتنا</a>
+        <a href="#projects" data-i18n="nav_projects">مشاريعنا</a>
+        <a href="#why-us" data-i18n="nav_why">لماذا نحن</a>
+        <a href="#sectors" data-i18n="nav_sectors">القطاعات</a>
+        <a href="#contact" data-i18n="nav_contact">تواصل معنا</a>
       </nav>
 
       <div class="nav-action-wrapper">
+        <!-- Modern Language Toggle Button -->
+        <button class="lang-btn" id="langSwitch" aria-label="Switch Language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="langLabel">EN</span>
+        </button>
+
         <a href="#contact" class="btn btn-primary nav-btn">
-          <span>تواصل معنا</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-i18n="nav_cta">تواصل معنا</span>
+          <svg class="flip-on-ltr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
 
         <!-- Hamburger Icon Button -->
-        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" type="button">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation" aria-expanded="false" type="button">
           <span></span>
           <span></span>
           <span></span>
@@ -1957,52 +2063,54 @@
   </header>
 
   <!-- ==========================================================================
-       MOBILE FULLSCREEN MENU WITH CLOSE (X) BUTTON
+       MOBILE FULLSCREEN MENU
        ========================================================================== -->
   <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
     
     <div class="mobile-menu-top-bar">
-      <div class="mobile-brand-title">
-        IRIS BLUE
-        <span class="dot" aria-hidden="true"></span>
+      <img src="Logo.png" alt="Iris Blue" class="mobile-brand-img">
+      <div class="mobile-top-actions">
+        <button class="lang-btn" id="mobileLangSwitch" aria-label="Switch Language">
+          <span id="mobileLangLabel">EN</span>
+        </button>
+        <button class="mobile-close-btn" id="menuCloseBtn" aria-label="Close menu" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
-      <button class="mobile-close-btn" id="menuCloseBtn" aria-label="إغلاق القائمة" type="button">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
     </div>
 
     <ul class="mobile-menu-links">
       <li class="mobile-menu-item">
-        <a href="#" class="mobile-link"><span class="nav-index">01</span>الرئيسية</a>
+        <a href="#" class="mobile-link"><span class="nav-index">01</span><span data-i18n="m_home">الرئيسية</span></a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#services" class="mobile-link"><span class="nav-index">02</span>خدماتنا</a>
+        <a href="#services" class="mobile-link"><span class="nav-index">02</span><span data-i18n="m_services">خدماتنا</span></a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#projects" class="mobile-link"><span class="nav-index">03</span>مشاريعنا</a>
+        <a href="#projects" class="mobile-link"><span class="nav-index">03</span><span data-i18n="m_projects">مشاريعنا</span></a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#why-us" class="mobile-link"><span class="nav-index">04</span>لماذا نحن</a>
+        <a href="#why-us" class="mobile-link"><span class="nav-index">04</span><span data-i18n="m_why">لماذا نحن</span></a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#sectors" class="mobile-link"><span class="nav-index">05</span>قطاعاتنا</a>
+        <a href="#sectors" class="mobile-link"><span class="nav-index">05</span><span data-i18n="m_sectors">قطاعاتنا</span></a>
       </li>
       <li class="mobile-menu-item">
-        <a href="#contact" class="mobile-link"><span class="nav-index">06</span>تواصل معنا</a>
+        <a href="#contact" class="mobile-link"><span class="nav-index">06</span><span data-i18n="m_contact">تواصل معنا</span></a>
       </li>
     </ul>
 
     <div class="mobile-menu-footer">
       <div class="mobile-footer-meta">
         <span>Iris Blue Tech Solutions</span>
-        <span style="color: var(--orange);">البنية التحتية الرقمية</span>
+        <span style="color: var(--orange);" data-i18n="m_tagline">البنية التحتية الرقمية</span>
       </div>
       <a href="#contact" class="btn btn-primary mobile-link" style="width: 100%;">
-        <span>تواصل معنا فوراً</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span data-i18n="m_cta">تواصل معنا فوراً</span>
+        <svg class="flip-on-ltr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
     </div>
   </div>
@@ -2012,7 +2120,7 @@
     <!-- ==========================================================================
        SECTION 01: HERO
        ========================================================================== -->
-    <section class="hero-section" aria-label="مقدمة الصفحة الرئيسية">
+    <section class="hero-section" aria-label="Hero Section">
       
       <div id="particles-js" aria-hidden="true"></div>
 
@@ -2022,26 +2130,26 @@
           <div class="hero-content">
             <div class="hero-meta-tag reveal-elem">
               <span class="tag-dot" aria-hidden="true"></span>
-              <span>Iris Blue Tech Solutions • البنية الرقمية المتكاملة</span>
+              <span data-i18n="hero_badge">Iris Blue Tech Solutions • البنية الرقمية المتكاملة</span>
             </div>
 
-            <h1 class="hero-headline reveal-elem">
+            <h1 class="hero-headline reveal-elem" data-i18n="hero_headline">
               حلول متكاملة للبنية الرقمية
               <span class="accent">والاتصالات والشبكات</span>
               ومراكز البيانات
             </h1>
 
-            <p class="hero-supporting reveal-elem">
+            <p class="hero-supporting reveal-elem" data-i18n="hero_desc">
               نقدم حلولاً هندسية وتنفيذية متقدمة في مسارات الألياف الضوئية، شبكات الاتصالات، ومراكز البيانات بمستويات اعتمادية تلبي متطلبات المشاريع الاستراتيجية.
             </p>
 
             <div class="hero-ctas reveal-elem">
               <a href="#contact" class="btn btn-primary">
-                <span>تواصل معنا</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span data-i18n="hero_btn_contact">تواصل معنا</span>
+                <svg class="flip-on-ltr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
               </a>
               <a href="#projects" class="btn btn-secondary">
-                <span>استعرض مشاريعنا</span>
+                <span data-i18n="hero_btn_projects">استعرض مشاريعنا</span>
               </a>
             </div>
           </div>
@@ -2049,10 +2157,10 @@
           <div class="hero-visual-stage reveal-elem">
             <div class="hero-visual-accent-line" aria-hidden="true"></div>
             <div class="hero-image-container">
-              <img src="11.png" alt="البنية التحتية للألياف الضوئية والاتصالات" width="1400" height="1680" fetchpriority="high">
+              <img src="11.png" alt="Infrastructure" width="1400" height="1680" fetchpriority="high">
             </div>
             <div class="hero-visual-badge">
-              <div class="hero-visual-badge-text">
+              <div class="hero-visual-badge-text" data-i18n="hero_badge_text">
                 دقة هندسية وقدرات ميدانية مجهزة لأعقد مشاريع الاتصالات.
               </div>
             </div>
@@ -2066,21 +2174,21 @@
             <div class="hero-stat-num">
               <span class="plus">+</span><span class="counter" data-target="10">0</span>
             </div>
-            <div class="hero-stat-lbl">سنوات من الخبرة</div>
+            <div class="hero-stat-lbl" data-i18n="stat_exp">سنوات من الخبرة</div>
           </div>
 
           <div class="hero-stat-cell">
             <div class="hero-stat-num">
               <span class="plus">+</span><span class="counter" data-target="50">0</span>
             </div>
-            <div class="hero-stat-lbl">مشروعاً منفذاً</div>
+            <div class="hero-stat-lbl" data-i18n="stat_projects">مشروعاً منفذاً</div>
           </div>
 
           <div class="hero-stat-cell">
             <div class="hero-stat-num">
               <span class="plus">+</span><span class="counter" data-target="20">0</span>
             </div>
-            <div class="hero-stat-lbl">شريكاً ومورداً</div>
+            <div class="hero-stat-lbl" data-i18n="stat_partners">شريكاً ومورداً</div>
           </div>
         </div>
 
@@ -2090,30 +2198,30 @@
     <!-- ==========================================================================
        SECTION 02: INTRODUCTION
        ========================================================================== -->
-    <section class="intro-section" id="about" aria-label="عن الشركة وقدراتنا">
+    <section class="intro-section" id="about" aria-label="About Us">
       <div class="container">
         <div class="intro-grid">
 
           <div class="intro-text-column reveal-elem">
-            <div class="section-eyebrow">منهجية العمل والجاهزية</div>
-            <h2 class="intro-headline">
+            <div class="section-eyebrow" data-i18n="intro_eyebrow">منهجية العمل والجاهزية</div>
+            <h2 class="intro-headline" data-i18n="intro_title">
               من المسح والتخطيط
               إلى التنفيذ والتسليم.
             </h2>
-            <p class="intro-paragraph">
+            <p class="intro-paragraph" data-i18n="intro_text">
               ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى تنفيذ شبكات الألياف الضوئية والاختبارات والتسليم، مع خبرة فنية وقدرات تنفيذية تناسب المشاريع الكبرى والمعقدة.
             </p>
             <div style="display: flex; gap: 1rem; align-items: center;">
               <span style="display: block; width: 35px; height: 1px; background-color: var(--blue);"></span>
-              <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">حلول مصممة للمشاريع الوطنية والمؤسسية</span>
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);" data-i18n="intro_note">حلول مصممة للمشاريع الوطنية والمؤسسية</span>
             </div>
           </div>
 
           <div class="intro-visual-column reveal-elem">
             <div class="intro-image-frame">
-              <img src="111.png" alt="مهندسو البنية التحتية الميدانية في موقع العمل" loading="lazy">
+              <img src="111.png" alt="Engineers on site" loading="lazy">
               <div class="intro-corner-graphic" aria-hidden="true">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                <svg class="flip-on-ltr" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </div>
             </div>
           </div>
@@ -2121,9 +2229,9 @@
         </div>
 
         <div class="transition-guide-strip reveal-elem">
-          <div style="font-weight: 800; font-size: 0.85rem; color: var(--text-muted);">دورة حياة المشاريع الهندسية</div>
+          <div style="font-weight: 800; font-size: 0.85rem; color: var(--text-muted);" data-i18n="trans_label">دورة حياة المشاريع الهندسية</div>
           <div class="transition-guide-line" aria-hidden="true"></div>
-          <div style="font-size: 0.85rem; color: var(--orange); font-weight: 700;">المعايير المعتمدة 100%</div>
+          <div style="font-size: 0.85rem; color: var(--orange); font-weight: 700;" data-i18n="trans_tag">المعايير المعتمدة 100%</div>
         </div>
       </div>
     </section>
@@ -2131,13 +2239,13 @@
     <!-- ==========================================================================
        SECTION 03: SERVICES
        ========================================================================== -->
-    <section class="services-section" id="services" aria-label="خدماتنا وحلولنا المتخصصة">
+    <section class="services-section" id="services" aria-label="Our Services">
       <div class="container">
         
         <div class="services-header reveal-elem">
-          <div class="section-eyebrow">خدمات متكاملة</div>
-          <h2 class="services-main-title">خدماتنا</h2>
-          <p class="services-sub-title">
+          <div class="section-eyebrow" data-i18n="srv_eyebrow">خدمات متكاملة</div>
+          <h2 class="services-main-title" data-i18n="srv_main_title">خدماتنا</h2>
+          <p class="services-sub-title" data-i18n="srv_sub_title">
             حلول متكاملة لمراحل المشروع المختلفة، من التخطيط وحتى التنفيذ والتسليم.
           </p>
         </div>
@@ -2147,60 +2255,60 @@
           <!-- 01 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">01</div>
-            <div class="service-title">البنية التحتية للاتصالات والشبكات</div>
-            <div class="service-body">تنفيذ وتوسعة البنية التحتية لشبكات الاتصالات والإنترنت وفق المتطلبات الفنية للمشروع.</div>
+            <div class="service-title" data-i18n="srv1_t">البنية التحتية للاتصالات والشبكات</div>
+            <div class="service-body" data-i18n="srv1_d">تنفيذ وتوسعة البنية التحتية لشبكات الاتصالات والإنترنت وفق المتطلبات الفنية للمشروع.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
           <!-- 02 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">02</div>
-            <div class="service-title">OSP &amp; Fiber Optics</div>
-            <div class="service-body">تنفيذ الشبكات الخارجية، مسارات الألياف الضوئية، أعمال السحب والتمديد، Fiber Splicing &amp; Optical Testing.</div>
+            <div class="service-title" data-i18n="srv2_t">OSP &amp; Fiber Optics</div>
+            <div class="service-body" data-i18n="srv2_d">تنفيذ الشبكات الخارجية، مسارات الألياف الضوئية، أعمال السحب والتمديد، Fiber Splicing &amp; Optical Testing.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
           <!-- 03 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">03</div>
-            <div class="service-title">الأعمال المدنية للاتصالات</div>
-            <div class="service-body">تنفيذ أعمال الحفر والخنادق والمسارات والبنية المدنية المرتبطة بمشاريع الاتصالات.</div>
+            <div class="service-title" data-i18n="srv3_t">الأعمال المدنية للاتصالات</div>
+            <div class="service-body" data-i18n="srv3_d">تنفيذ أعمال الحفر والخنادق والمسارات والبنية المدنية المرتبطة بمشاريع الاتصالات.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
           <!-- 04 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">04</div>
-            <div class="service-title">المسح وتحديد الخدمات المدفونة</div>
-            <div class="service-body">تنفيذ المسح الميداني للمسارات واستخدام تقنية GPR لتحديد الخدمات والمنشآت المدفونة واختيار مسارات الحفر المناسبة.</div>
+            <div class="service-title" data-i18n="srv4_t">المسح وتحديد الخدمات المدفونة</div>
+            <div class="service-body" data-i18n="srv4_d">تنفيذ المسح الميداني للمسارات واستخدام تقنية GPR لتحديد الخدمات والمنشآت المدفونة واختيار مسارات الحفر المناسبة.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
           <!-- 05 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">05</div>
-            <div class="service-title">مراكز البيانات</div>
-            <div class="service-body">توفير وتنفيذ حلول وتجهيزات البنية التحتية لمراكز البيانات والمنشآت التي تتطلب مستويات عالية من الاعتمادية والاستمرارية.</div>
+            <div class="service-title" data-i18n="srv5_t">مراكز البيانات</div>
+            <div class="service-body" data-i18n="srv5_d">توفير وتنفيذ حلول وتجهيزات البنية التحتية لمراكز البيانات والمنشآت التي تتطلب مستويات عالية من الاعتمادية والاستمرارية.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
           <!-- 06 -->
           <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
             <div class="service-num">06</div>
-            <div class="service-title">المعدات والآليات الهندسية</div>
-            <div class="service-body">توفير واستخدام المعدات والآليات اللازمة لأعمال الحفر والتنفيذ وتمديد البنية التحتية.</div>
+            <div class="service-title" data-i18n="srv6_t">المعدات والآليات الهندسية</div>
+            <div class="service-body" data-i18n="srv6_d">توفير واستخدام المعدات والآليات اللازمة لأعمال الحفر والتنفيذ وتمديد البنية التحتية.</div>
             <div class="service-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg class="flip-on-ltr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
           </div>
 
@@ -2211,17 +2319,17 @@
     <!-- ==========================================================================
        SECTION 04: FULL-WIDTH BLUE MOMENT
        ========================================================================== -->
-    <section class="blue-statement-section" aria-label="رؤية الاتصال">
+    <section class="blue-statement-section" aria-label="Statement">
       <div class="container">
         <div class="statement-content-wrap reveal-elem">
           <svg class="statement-quote-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-8.983z"/>
           </svg>
-          <div class="statement-headline">
+          <div class="statement-headline" data-i18n="stmt_headline">
             نبني البنية التحتية<br>
             التي يعتمد عليها الاتصال.
           </div>
-          <div class="statement-annotation">
+          <div class="statement-annotation" data-i18n="stmt_annot">
             Iris Blue Tech Solutions • التزام بالاستدامة والكفاءة الهندسية
           </div>
         </div>
@@ -2229,17 +2337,17 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 05: PROJECTS SHOWCASE (PREMIUM MODERN DESIGN & CLEAR IMAGES)
+       SECTION 05: PROJECTS SHOWCASE
        ========================================================================== -->
-    <section class="projects-section" id="projects" aria-label="سجل مشاريعنا الهندسية">
+    <section class="projects-section" id="projects" aria-label="Projects">
       <div class="container">
         
         <div class="projects-header reveal-elem">
           <div>
-            <div class="section-eyebrow">سجل الإنجاز والخبرات</div>
-            <h2 class="projects-title">مشاريعنا</h2>
+            <div class="section-eyebrow" data-i18n="proj_eyebrow">سجل الإنجاز والخبرات</div>
+            <h2 class="projects-title" data-i18n="proj_title">مشاريعنا</h2>
           </div>
-          <p class="projects-subtitle">
+          <p class="projects-subtitle" data-i18n="proj_subtitle">
             نخبة من المشاريع الاستراتيجية والتنفيذية المنفذة في شبكات الألياف الضوئية، المسارات الفقارية، وتجهيز مراكز البيانات عالية الاعتمادية.
           </p>
         </div>
@@ -2249,108 +2357,108 @@
           <!-- Project 01 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">الألياف الضوئية OSP</span>
-              <img src="1.jpeg" alt="1.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_osp">الألياف الضوئية OSP</span>
+              <img src="1.jpeg" alt="Project 1" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">الشبكة الفقارية الضوئية – مشروع شركة جاد</h3>
-              <p class="project-card-desc">الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.</p>
+              <h3 class="project-card-title" data-i18n="p1_t">الشبكة الفقارية الضوئية – مشروع شركة جاد</h3>
+              <p class="project-card-desc" data-i18n="p1_d">الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.</p>
             </div>
           </article>
 
           <!-- Project 02 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">إعادة تأهيل وتطوير</span>
-              <img src="2.jpeg" alt="2.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_rehab">إعادة تأهيل وتطوير</span>
+              <img src="2.jpeg" alt="Project 2" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">إعادة تأهيل كابل حلب – دبسي عفنان</h3>
-              <p class="project-card-desc">الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.</p>
+              <h3 class="project-card-title" data-i18n="p2_t">إعادة تأهيل كابل حلب – دبسي عفنان</h3>
+              <p class="project-card-desc" data-i18n="p2_d">الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.</p>
             </div>
           </article>
 
           <!-- Project 03 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">مسارات الربط الإقليمي</span>
-              <img src="3.jpeg" alt="3.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_regional">مسارات الربط الإقليمي</span>
+              <img src="3.jpeg" alt="Project 3" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">ربط حلب بمحافظة حماه</h3>
-              <p class="project-card-desc">الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.</p>
+              <h3 class="project-card-title" data-i18n="p3_t">ربط حلب بمحافظة حماه</h3>
+              <p class="project-card-desc" data-i18n="p3_d">الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.</p>
             </div>
           </article>
 
           <!-- Project 04 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">شبكات النفاذ FTTH</span>
-              <img src="4.jpeg" alt="4.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_ftth">شبكات النفاذ FTTH</span>
+              <img src="4.jpeg" alt="Project 4" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">مشاريع FTTH – مدينة حلب</h3>
-              <p class="project-card-desc">تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.</p>
+              <h3 class="project-card-title" data-i18n="p4_t">مشاريع FTTH – مدينة حلب</h3>
+              <p class="project-card-desc" data-i18n="p4_d">تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.</p>
             </div>
           </article>
 
           <!-- Project 05 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">مراكز بيانات طبية</span>
-              <img src="5.jpeg" alt="5.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_med_dc">مراكز بيانات طبية</span>
+              <img src="5.jpeg" alt="Project 5" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">مركز بيانات المشفى الطلياني – دمشق</h3>
-              <p class="project-card-desc">تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.</p>
+              <h3 class="project-card-title" data-i18n="p5_t">مركز بيانات المشفى الطلياني – دمشق</h3>
+              <p class="project-card-desc" data-i18n="p5_d">تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.</p>
             </div>
           </article>
 
           <!-- Project 06 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">مراكز بيانات وطنية</span>
-              <img src="6.jpeg" alt="6.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_nat_dc">مراكز بيانات وطنية</span>
+              <img src="6.jpeg" alt="Project 6" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق</h3>
-              <p class="project-card-desc">الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.</p>
+              <h3 class="project-card-title" data-i18n="p6_t">مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق</h3>
+              <p class="project-card-desc" data-i18n="p6_d">الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.</p>
             </div>
           </article>
 
           <!-- Project 07 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">منشآت حيوية</span>
-              <img src="7.jpeg" alt="7.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_vital">منشآت حيوية</span>
+              <img src="7.jpeg" alt="Project 7" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق</h3>
-              <p class="project-card-desc">الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.</p>
+              <h3 class="project-card-title" data-i18n="p7_t">مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق</h3>
+              <p class="project-card-desc" data-i18n="p7_d">الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.</p>
             </div>
           </article>
 
           <!-- Project 08 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">قطاع صناعي واستثماري</span>
-              <img src="8.jpeg" alt="8.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_ind">قطاع صناعي واستثماري</span>
+              <img src="8.jpeg" alt="Project 8" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">مركز بيانات شركة مسالكو – عدرا - ريف دمشق</h3>
-              <p class="project-card-desc">تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.</p>
+              <h3 class="project-card-title" data-i18n="p8_t">مركز بيانات شركة مسالكو – عدرا - ريف دمشق</h3>
+              <p class="project-card-desc" data-i18n="p8_d">تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.</p>
             </div>
           </article>
 
           <!-- Project 09 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill">دراسات واستشارات فنية</span>
-              <img src="9.jpeg" alt="9.jpg" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_studies">دراسات واستشارات فنية</span>
+              <img src="9.jpeg" alt="Project 9" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title">دراسة مركز بيانات معمل السكر – حسيا - ريف حمص</h3>
-              <p class="project-card-desc">إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.</p>
+              <h3 class="project-card-title" data-i18n="p9_t">دراسة مركز بيانات معمل السكر – حسيا - ريف حمص</h3>
+              <p class="project-card-desc" data-i18n="p9_d">إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.</p>
             </div>
           </article>
 
@@ -2362,12 +2470,12 @@
     <!-- ==========================================================================
        SECTION 06: WHY IRIS BLUE
        ========================================================================== -->
-    <section class="why-section" id="why-us" aria-label="لماذا نحن">
+    <section class="why-section" id="why-us" aria-label="Why Us">
       <div class="container">
         
         <div class="why-header reveal-elem">
-          <h2 class="why-title">لماذا Iris Blue؟</h2>
-          <p class="why-subtitle">
+          <h2 class="why-title" data-i18n="why_title">لماذا Iris Blue؟</h2>
+          <p class="why-subtitle" data-i18n="why_subtitle">
             نجمع بين الفهم الهندسي المتخصص والقدرات الميدانية المؤهلة للتعامل مع متطلبات المشاريع الحيوية.
           </p>
         </div>
@@ -2376,32 +2484,32 @@
 
           <div class="why-item reveal-elem">
             <span class="why-item-num">01 /</span>
-            <h3 class="why-item-title">خبرة فنية متخصصة</h3>
-            <p class="why-item-desc">
+            <h3 class="why-item-title" data-i18n="why1_t">خبرة فنية متخصصة</h3>
+            <p class="why-item-desc" data-i18n="why1_d">
               فهم عملي لمتطلبات مشاريع الاتصالات والبنية التحتية الرقمية.
             </p>
           </div>
 
           <div class="why-item reveal-elem">
             <span class="why-item-num">02 /</span>
-            <h3 class="why-item-title">قدرات تنفيذية متكاملة</h3>
-            <p class="why-item-desc">
+            <h3 class="why-item-title" data-i18n="why2_t">قدرات تنفيذية متكاملة</h3>
+            <p class="why-item-desc" data-i18n="why2_d">
               من المسح والأعمال المدنية إلى تنفيذ الشبكات والاختبارات والتسليم.
             </p>
           </div>
 
           <div class="why-item reveal-elem">
             <span class="why-item-num">03 /</span>
-            <h3 class="why-item-title">حلول مصممة للمشاريع الكبرى</h3>
-            <p class="why-item-desc">
+            <h3 class="why-item-title" data-i18n="why3_t">حلول مصممة للمشاريع الكبرى</h3>
+            <p class="why-item-desc" data-i18n="why3_d">
               قدرة على التعامل مع المشاريع الوطنية والاستراتيجية والمشاريع ذات المتطلبات الفنية المعقدة.
             </p>
           </div>
 
           <div class="why-item reveal-elem">
             <span class="why-item-num">04 /</span>
-            <h3 class="why-item-title">جودة وسلامة</h3>
-            <p class="why-item-desc">
+            <h3 class="why-item-title" data-i18n="why4_t">جودة وسلامة</h3>
+            <p class="why-item-desc" data-i18n="why4_d">
               الالتزام بالمعايير الفنية وإجراءات السلامة وجودة التنفيذ في جميع مراحل المشروع.
             </p>
           </div>
@@ -2414,63 +2522,63 @@
     <!-- ==========================================================================
        SECTION 07: STRATEGIC SECTORS
        ========================================================================== -->
-    <section class="sectors-section" id="sectors" aria-label="القطاعات التي نخدمها">
+    <section class="sectors-section" id="sectors" aria-label="Sectors">
       <div class="container">
         <div class="sectors-layout">
 
           <div class="sectors-content-wrap reveal-elem">
-            <div class="section-eyebrow">شراكات استراتيجية</div>
-            <h2 class="sectors-title">نخدم قطاعات استراتيجية</h2>
+            <div class="section-eyebrow" data-i18n="sec_eyebrow">شراكات استراتيجية</div>
+            <h2 class="sectors-title" data-i18n="sec_title">نخدم قطاعات استراتيجية</h2>
 
             <ul class="sectors-list" role="list">
               
               <li class="sector-item is-active" data-image="11.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
-                  مشاريع البنية التحتية الوطنية والاستراتيجية
+                  <span data-i18n="sec1">مشاريع البنية التحتية الوطنية والاستراتيجية</span>
                 </span>
                 <span class="sector-item-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="flip-on-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
               </li>
 
               <li class="sector-item" data-image="12.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
-                  شركات الاتصالات ومزودو خدمات الإنترنت
+                  <span data-i18n="sec2">شركات الاتصالات ومزودو خدمات الإنترنت</span>
                 </span>
                 <span class="sector-item-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="flip-on-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
               </li>
 
               <li class="sector-item" data-image="13.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
-                  مراكز البيانات
+                  <span data-i18n="sec3">مراكز البيانات</span>
                 </span>
                 <span class="sector-item-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="flip-on-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
               </li>
 
               <li class="sector-item" data-image="14.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
-                  الجهات الحكومية والمؤسسات العامة
+                  <span data-i18n="sec4">الجهات الحكومية والمؤسسات العامة</span>
                 </span>
                 <span class="sector-item-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="flip-on-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
               </li>
 
               <li class="sector-item" data-image="15.png">
                 <span class="sector-item-text">
                   <span class="sector-item-indicator" aria-hidden="true"></span>
-                  المشاريع الكبرى والمنشآت الحيوية
+                  <span data-i18n="sec5">المشاريع الكبرى والمنشآت الحيوية</span>
                 </span>
                 <span class="sector-item-arrow" aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg class="flip-on-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </span>
               </li>
 
@@ -2478,7 +2586,7 @@
           </div>
 
           <div class="sectors-visual-stage reveal-elem" aria-hidden="true">
-            <img id="activeSectorImage" src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80" alt="قطاع استراتيجي" class="active">
+            <img id="activeSectorImage" src="11.png" alt="Sector Visual" class="active">
             <div class="sectors-stage-overlay"></div>
           </div>
 
@@ -2489,14 +2597,14 @@
     <!-- ==========================================================================
        SECTION 08: CINEMATIC MOMENT
        ========================================================================== -->
-    <section class="cinematic-moment-section" aria-label="رؤية التنفيذ">
+    <section class="cinematic-moment-section" aria-label="Vision">
       <div class="cinematic-bg-media">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85" alt="موقع هندسي لتنفيذ البنية التحتية" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85" alt="Infrastructure work" loading="lazy">
       </div>
       <div class="cinematic-backdrop-filter"></div>
       
       <div class="cinematic-caption-wrap reveal-elem">
-        <blockquote class="cinematic-statement">
+        <blockquote class="cinematic-statement" data-i18n="cinematic_quote">
           البنية التحتية القوية تبدأ من التنفيذ الصحيح.
         </blockquote>
         <span class="cinematic-statement-line" aria-hidden="true"></span>
@@ -2504,19 +2612,19 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 09: STRATEGIC CONTACT HUB (ENGAGING CTA & OFFICIAL CHANNELS)
+       SECTION 09: STRATEGIC CONTACT HUB
        ========================================================================== -->
-    <section class="contact-hub-section" id="contact" aria-label="تواصل مع فريقنا">
+    <section class="contact-hub-section" id="contact" aria-label="Contact">
       <div class="container">
         <div class="contact-hub-grid">
 
           <div class="contact-hub-info reveal-elem">
-            <div class="section-eyebrow">قنوات التواصل المباشرة</div>
-            <h2 class="contact-hub-title">
+            <div class="section-eyebrow" data-i18n="cnt_eyebrow">قنوات التواصل المباشرة</div>
+            <h2 class="contact-hub-title" data-i18n="cnt_title">
               لديك مشروع يحتاج<br>
               إلى بنية تحتية موثوقة؟
             </h2>
-            <p class="contact-hub-desc">
+            <p class="contact-hub-desc" data-i18n="cnt_desc">
               تواصل مباشرة مع مهندسي واستشاريي Iris Blue لمناقشة نطاق العمل، دراسة المخططات الفنية، وتقديم الحلول الهندسية المناسبة لمشروعك فوراً.
             </p>
 
@@ -2526,19 +2634,18 @@
               <a href="https://wa.me/971507760662" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
                 <div class="channel-meta">
                   <div class="channel-icon whatsapp">
-                    <!-- Official SVG Logo -->
                     <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.653.738 5.137 2.022 7.262L2.6 29.4l6.326-1.385A13.914 13.914 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.48-.684-6.294-1.865l-.45-.292-4.14.907.925-3.996-.312-.468A11.536 11.536 0 014.4 16C4.4 9.604 9.604 4.4 16 4.4S27.6 9.604 27.6 16 22.396 27.6 16 27.6zm6.89-8.732c-.378-.19-2.234-1.103-2.58-1.23-.346-.126-.598-.19-.85.19-.252.378-.977 1.23-1.198 1.482-.22.252-.44.284-.818.095-.378-.19-1.597-.588-3.042-1.877-1.124-1.003-1.884-2.242-2.104-2.62-.22-.378-.024-.582.166-.77.17-.17.378-.44.567-.661.189-.22.252-.378.378-.63.126-.252.063-.472-.032-.661-.094-.19-.85-2.05-1.165-2.808-.307-.738-.619-.638-.85-.65-.22-.01-.472-.013-.724-.013s-.661.095-1.008.472c-.346.378-1.322 1.293-1.322 3.152 0 1.86 1.354 3.656 1.543 3.908.19.252 2.664 4.07 6.455 5.706.902.39 1.606.623 2.155.797.906.288 1.73.247 2.382.15.727-.109 2.234-.914 2.549-1.796.315-.882.315-1.638.22-1.796-.094-.157-.346-.252-.724-.44z" fill="#FFFFFF"/>
                     </svg>
                   </div>
                   <div class="channel-details">
-                    <h3>محادثة واتساب مباشرة</h3>
+                    <h3 data-i18n="cnt_wa_title">محادثة واتساب مباشرة</h3>
                     <p>+971 50 77 60662</p>
                   </div>
                 </div>
                 <div class="channel-badge">
-                  <span>تواصل فوري</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <span data-i18n="cnt_instant">تواصل فوري</span>
+                  <svg class="flip-on-ltr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
               </a>
 
@@ -2551,13 +2658,13 @@
                     </svg>
                   </div>
                   <div class="channel-details">
-                    <h3>الاتصال الهاتفي المباشر</h3>
+                    <h3 data-i18n="cnt_phone_title">الاتصال الهاتفي المباشر</h3>
                     <p>+971 50 77 60662</p>
                   </div>
                 </div>
                 <div class="channel-badge">
-                  <span>اتصال هاتفي</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <span data-i18n="cnt_call_badge">اتصال هاتفي</span>
+                  <svg class="flip-on-ltr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
               </a>
 
@@ -2571,13 +2678,13 @@
                     </svg>
                   </div>
                   <div class="channel-details">
-                    <h3>المراسلات الهندسية والعروض</h3>
+                    <h3 data-i18n="cnt_email_title">المراسلات الهندسية والعروض</h3>
                     <p>info@iris-blue.net</p>
                   </div>
                 </div>
                 <div class="channel-badge">
-                  <span>إرسال بريد</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <span data-i18n="cnt_email_badge">إرسال بريد</span>
+                  <svg class="flip-on-ltr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
               </a>
 
@@ -2586,22 +2693,22 @@
 
           <!-- Executive Technical Box -->
           <div class="contact-executive-box reveal-elem">
-            <h3 class="exec-box-title">جاهزية تشغيلية على مدار الساعة</h3>
-            <p class="exec-box-desc">
+            <h3 class="exec-box-title" data-i18n="exec_title">جاهزية تشغيلية على مدار الساعة</h3>
+            <p class="exec-box-desc" data-i18n="exec_desc">
               نمتلك الكوادر المؤهلة والآليات الهندسية التخصصية لدعم كافة مراحل البنية التحتية في مختلف المحافظات والمشاريع الكبرى.
             </p>
             <ul class="exec-trust-list">
               <li class="exec-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>استجابة فنية سريعة لعروض الأسعار والمخططات</span>
+                <span data-i18n="exec_p1">استجابة فنية سريعة لعروض الأسعار والمخططات</span>
               </li>
               <li class="exec-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>إشراف هندسي ميداني وفق المعايير العالمية</span>
+                <span data-i18n="exec_p2">إشراف هندسي ميداني وفق المعايير العالمية</span>
               </li>
               <li class="exec-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>اعتمادية تامة في تنفيذ المشاريع الحساسة والاستراتيجية</span>
+                <span data-i18n="exec_p3">اعتمادية تامة في تنفيذ المشاريع الحساسة والاستراتيجية</span>
               </li>
             </ul>
           </div>
@@ -2621,29 +2728,29 @@
       <div class="footer-top-grid">
         
         <div class="footer-brand-column">
-          <div class="footer-brand-title">IRIS BLUE<span>.</span></div>
-          <p class="footer-brand-desc">
+          <img src="Logo.png" alt="Iris Blue" class="footer-brand-logo-img">
+          <p class="footer-brand-desc" data-i18n="footer_desc">
             البنية الرقمية والاتصالات والبنية التحتية التقنية. حلول هندسية متكاملة للمشاريع الاستراتيجية والوطنية.
           </p>
         </div>
 
         <div>
-          <div class="footer-nav-title">الخدمات الأساسية</div>
+          <div class="footer-nav-title" data-i18n="footer_s_title">الخدمات الأساسية</div>
           <ul class="footer-nav-list">
-            <li><a href="#services">شبكات الألياف الضوئية OSP</a></li>
-            <li><a href="#services">المسح الراداري GPR</a></li>
-            <li><a href="#services">البنية التحتية لمراكز البيانات</a></li>
-            <li><a href="#services">الأعمال المدنية والهندسية</a></li>
+            <li><a href="#services" data-i18n="footer_s1">شبكات الألياف الضوئية OSP</a></li>
+            <li><a href="#services" data-i18n="footer_s2">المسح الراداري GPR</a></li>
+            <li><a href="#services" data-i18n="footer_s3">البنية التحتية لمراكز البيانات</a></li>
+            <li><a href="#services" data-i18n="footer_s4">الأعمال المدنية والهندسية</a></li>
           </ul>
         </div>
 
         <div>
-          <div class="footer-nav-title">روابط سريعة</div>
+          <div class="footer-nav-title" data-i18n="footer_q_title">روابط سريعة</div>
           <ul class="footer-nav-list">
-            <li><a href="#projects">سجل المشاريع المنفذة</a></li>
-            <li><a href="#why-us">لماذا Iris Blue</a></li>
-            <li><a href="#sectors">القطاعات المستهدفة</a></li>
-            <li><a href="#contact">تواصل معنا فوراً</a></li>
+            <li><a href="#projects" data-i18n="nav_projects">سجل المشاريع المنفذة</a></li>
+            <li><a href="#why-us" data-i18n="nav_why">لماذا Iris Blue</a></li>
+            <li><a href="#sectors" data-i18n="nav_sectors">القطاعات المستهدفة</a></li>
+            <li><a href="#contact" data-i18n="footer_q4">تواصل معنا فوراً</a></li>
           </ul>
         </div>
 
@@ -2651,20 +2758,305 @@
 
       <div class="footer-bottom-bar">
         <div class="footer-official-name">Iris Blue Tech Solutions &copy; <span id="currentYear">2026</span></div>
-        <div style="font-size: 0.85rem;">جميع الحقوق محفوظة لمشاريع البنية الرقمية المتقدمة</div>
+        <div style="font-size: 0.85rem;" data-i18n="footer_rights">جميع الحقوق محفوظة لمشاريع البنية الرقمية المتقدمة</div>
       </div>
 
     </div>
   </footer>
 
   <!-- ==========================================================================
-       VANILLA JAVASCRIPT
+       VANILLA JAVASCRIPT & MULTI-LANGUAGE SYSTEM
        ========================================================================== -->
   <script>
+    /* ------------------------------------------------------------------------
+       00. COMPLETE DICTIONARY & LOCALIZATION (AR / EN)
+       ------------------------------------------------------------------------ */
+    const translations = {
+      ar: {
+        meta_title: "Iris Blue | حلول البنية التحتية الرقمية والاتصالات ومراكز البيانات",
+        meta_desc: "ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى شبكات الألياف الضوئية ومراكز البيانات.",
+        nav_services: "خدماتنا",
+        nav_projects: "مشاريعنا",
+        nav_why: "لماذا نحن",
+        nav_sectors: "القطاعات",
+        nav_contact: "تواصل معنا",
+        nav_cta: "تواصل معنا",
+        m_home: "الرئيسية",
+        m_services: "خدماتنا",
+        m_projects: "مشاريعنا",
+        m_why: "لماذا نحن",
+        m_sectors: "قطاعاتنا",
+        m_contact: "تواصل معنا",
+        m_tagline: "البنية التحتية الرقمية",
+        m_cta: "تواصل معنا فوراً",
+        float_wa: "واتساب",
+        float_call: "اتصال هاتفي",
+        hero_badge: "Iris Blue Tech Solutions • البنية الرقمية المتكاملة",
+        hero_headline: 'حلول متكاملة للبنية الرقمية <span class="accent">والاتصالات والشبكات</span> ومراكز البيانات',
+        hero_desc: "نقدم حلولاً هندسية وتنفيذية متقدمة في مسارات الألياف الضوئية، شبكات الاتصالات، ومراكز البيانات بمستويات اعتمادية تلبي متطلبات المشاريع الاستراتيجية.",
+        hero_btn_contact: "تواصل معنا",
+        hero_btn_projects: "استعرض مشاريعنا",
+        hero_badge_text: "دقة هندسية وقدرات ميدانية مجهزة لأعقد مشاريع الاتصالات.",
+        stat_exp: "سنوات من الخبرة",
+        stat_projects: "مشروعاً منفذاً",
+        stat_partners: "شريكاً ومورداً",
+        intro_eyebrow: "منهجية العمل والجاهزية",
+        intro_title: "من المسح والتخطيط\nإلى التنفيذ والتسليم.",
+        intro_text: "ننفذ ونقدم حلولاً متكاملة لمشاريع البنية التحتية الرقمية والاتصالات، من المسح والتخطيط والأعمال المدنية إلى تنفيذ شبكات الألياف الضوئية والاختبارات والتسليم، مع خبرة فنية وقدرات تنفيذية تناسب المشاريع الكبرى والمعقدة.",
+        intro_note: "حلول مصممة للمشاريع الوطنية والمؤسسية",
+        trans_label: "دورة حياة المشاريع الهندسية",
+        trans_tag: "المعايير المعتمدة 100%",
+        srv_eyebrow: "خدمات متكاملة",
+        srv_main_title: "خدماتنا",
+        srv_sub_title: "حلول متكاملة لمراحل المشروع المختلفة، من التخطيط وحتى التنفيذ والتسليم.",
+        srv1_t: "البنية التحتية للاتصالات والشبكات",
+        srv1_d: "تنفيذ وتوسعة البنية التحتية لشبكات الاتصالات والإنترنت وفق المتطلبات الفنية للمشروع.",
+        srv2_t: "OSP & Fiber Optics",
+        srv2_d: "تنفيذ الشبكات الخارجية، مسارات الألياف الضوئية، أعمال السحب والتمديد، Fiber Splicing & Optical Testing.",
+        srv3_t: "الأعمال المدنية للاتصالات",
+        srv3_d: "تنفيذ أعمال الحفر والخنادق والمسارات والبنية المدنية المرتبطة بمشاريع الاتصالات.",
+        srv4_t: "المسح وتحديد الخدمات المدفونة",
+        srv4_d: "تنفيذ المسح الميداني للمسارات واستخدام تقنية GPR لتحديد الخدمات والمنشآت المدفونة واختيار مسارات الحفر المناسبة.",
+        srv5_t: "مراكز البيانات",
+        srv5_d: "توفير وتنفيذ حلول وتجهيزات البنية التحتية لمراكز البيانات والمنشآت التي تتطلب مستويات عالية من الاعتمادية والاستمرارية.",
+        srv6_t: "المعدات والآليات الهندسية",
+        srv6_d: "توفير واستخدام المعدات والآليات اللازمة لأعمال الحفر والتنفيذ وتمديد البنية التحتية.",
+        stmt_headline: "نبني البنية التحتية<br>التي يعتمد عليها الاتصال.",
+        stmt_annot: "Iris Blue Tech Solutions • التزام بالاستدامة والكفاءة الهندسية",
+        proj_eyebrow: "سجل الإنجاز والخبرات",
+        proj_title: "مشاريعنا",
+        proj_subtitle: "نخبة من المشاريع الاستراتيجية والتنفيذية المنفذة في شبكات الألياف الضوئية، المسارات الفقارية، وتجهيز مراكز البيانات عالية الاعتمادية.",
+        tag_osp: "الألياف الضوئية OSP",
+        p1_t: "الشبكة الفقارية الضوئية – مشروع شركة جاد",
+        p1_d: "الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.",
+        tag_rehab: "إعادة تأهيل وتطوير",
+        p2_t: "إعادة تأهيل كابل حلب – دبسي عفنان",
+        p2_d: "الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.",
+        tag_regional: "مسارات الربط الإقليمي",
+        p3_t: "ربط حلب بمحافظة حماه",
+        p3_d: "الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.",
+        tag_ftth: "شبكات النفاذ FTTH",
+        p4_t: "مشاريع FTTH – مدينة حلب",
+        p4_d: "تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.",
+        tag_med_dc: "مراكز بيانات طبية",
+        p5_t: "مركز بيانات المشفى الطلياني – دمشق",
+        p5_d: "تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.",
+        tag_nat_dc: "مراكز بيانات وطنية",
+        p6_t: "مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق",
+        p6_d: "الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.",
+        tag_vital: "منشآت حيوية",
+        p7_t: "مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق",
+        p7_d: "الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.",
+        tag_ind: "قطاع صناعي واستثماري",
+        p8_t: "مركز بيانات شركة مسالكو – عدرا - ريف دمشق",
+        p8_d: "تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.",
+        tag_studies: "دراسات واستشارات فنية",
+        p9_t: "دراسة مركز بيانات معمل السكر – حسيا - ريف حمص",
+        p9_d: "إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.",
+        why_title: "لماذا Iris Blue؟",
+        why_subtitle: "نجمع بين الفهم الهندسي المتخصص والقدرات الميدانية المؤهلة للتعامل مع متطلبات المشاريع الحيوية.",
+        why1_t: "خبرة فنية متخصصة",
+        why1_d: "فهم عملي لمتطلبات مشاريع الاتصالات والبنية التحتية الرقمية.",
+        why2_t: "قدرات تنفيذية متكاملة",
+        why2_d: "من المسح والأعمال المدنية إلى تنفيذ الشبكات والاختبارات والتسليم.",
+        why3_t: "حلول مصممة للمشاريع الكبرى",
+        why3_d: "قدرة على التعامل مع المشاريع الوطنية والاستراتيجية والمشاريع ذات المتطلبات الفنية المعقدة.",
+        why4_t: "جودة وسلامة",
+        why4_d: "الالتزام بالمعايير الفنية وإجراءات السلامة وجودة التنفيذ في جميع مراحل المشروع.",
+        sec_eyebrow: "شراكات استراتيجية",
+        sec_title: "نخدم قطاعات استراتيجية",
+        sec1: "مشاريع البنية التحتية الوطنية والاستراتيجية",
+        sec2: "شركات الاتصالات ومزودو خدمات الإنترنت",
+        sec3: "مراكز البيانات",
+        sec4: "الجهات الحكومية والمؤسسات العامة",
+        sec5: "المشاريع الكبرى والمنشآت الحيوية",
+        cinematic_quote: "البنية التحتية القوية تبدأ من التنفيذ الصحيح.",
+        cnt_eyebrow: "قنوات التواصل المباشرة",
+        cnt_title: "لديك مشروع يحتاج<br>إلى بنية تحتية موثوقة؟",
+        cnt_desc: "تواصل مباشرة مع مهندسي واستشاريي Iris Blue لمناقشة نطاق العمل، دراسة المخططات الفنية، وتقديم الحلول الهندسية المناسبة لمشروعك فوراً.",
+        cnt_wa_title: "محادثة واتساب مباشرة",
+        cnt_instant: "تواصل فوري",
+        cnt_phone_title: "الاتصال الهاتفي المباشر",
+        cnt_call_badge: "اتصال هاتفي",
+        cnt_email_title: "المراسلات الهندسية والعروض",
+        cnt_email_badge: "إرسال بريد",
+        exec_title: "جاهزية تشغيلية على مدار الساعة",
+        exec_desc: "نمتلك الكوادر المؤهلة والآليات الهندسية التخصصية لدعم كافة مراحل البنية التحتية في مختلف المحافظات والمشاريع الكبرى.",
+        exec_p1: "استجابة فنية سريعة لعروض الأسعار والمخططات",
+        exec_p2: "إشراف هندسي ميداني وفق المعايير العالمية",
+        exec_p3: "اعتمادية تامة في تنفيذ المشاريع الحساسة والاستراتيجية",
+        footer_desc: "البنية الرقمية والاتصالات والبنية التحتية التقنية. حلول هندسية متكاملة للمشاريع الاستراتيجية والوطنية.",
+        footer_s_title: "الخدمات الأساسية",
+        footer_s1: "شبكات الألياف الضوئية OSP",
+        footer_s2: "المسح الراداري GPR",
+        footer_s3: "البنية التحتية لمراكز البيانات",
+        footer_s4: "الأعمال المدنية والهندسية",
+        footer_q_title: "روابط سريعة",
+        footer_q4: "تواصل معنا فوراً",
+        footer_rights: "جميع الحقوق محفوظة لمشاريع البنية الرقمية المتقدمة"
+      },
+      en: {
+        meta_title: "Iris Blue | Digital Infrastructure, Telecom & Data Centers Solutions",
+        meta_desc: "Comprehensive engineering and turnkey solutions for telecom infrastructure, OSP fiber networks, and mission-critical data centers.",
+        nav_services: "Services",
+        nav_projects: "Projects",
+        nav_why: "Why Us",
+        nav_sectors: "Sectors",
+        nav_contact: "Contact",
+        nav_cta: "Contact Us",
+        m_home: "Home",
+        m_services: "Services",
+        m_projects: "Projects",
+        m_why: "Why Us",
+        m_sectors: "Sectors",
+        m_contact: "Contact",
+        m_tagline: "Digital Infrastructure",
+        m_cta: "Get In Touch",
+        float_wa: "WhatsApp",
+        float_call: "Call Us",
+        hero_badge: "Iris Blue Tech Solutions • Integrated Digital Infrastructure",
+        hero_headline: 'Comprehensive Solutions for <span class="accent">Digital Infrastructure, Telecom</span> & Data Centers',
+        hero_desc: "Delivering advanced engineering and field execution in fiber optic routes, telecom networks, and high-reliability data centers for strategic-scale projects.",
+        hero_btn_contact: "Contact Us",
+        hero_btn_projects: "Explore Projects",
+        hero_badge_text: "Engineering precision and field readiness for demanding telecom infrastructure.",
+        stat_exp: "Years of Experience",
+        stat_projects: "Delivered Projects",
+        stat_partners: "Partners & Suppliers",
+        intro_eyebrow: "Execution Readiness",
+        intro_title: "From Survey & Planning\nto Turnkey Delivery.",
+        intro_text: "We execute end-to-end digital infrastructure solutions—from route survey, civil engineering, and cable blowing to splicing, optical testing, and commissioning, tailored for complex nationwide projects.",
+        intro_note: "Engineered for national and enterprise-scale developments",
+        trans_label: "Engineering Project Lifecycle",
+        trans_tag: "100% Certified Standards",
+        srv_eyebrow: "Full-Spectrum Solutions",
+        srv_main_title: "Our Services",
+        srv_sub_title: "End-to-end technical capabilities spanning survey, civil execution, fiber deployment, and commissioning.",
+        srv1_t: "Telecom & Network Infrastructure",
+        srv1_d: "Deployment and modernization of high-bandwidth telecom networks matching strict engineering standards.",
+        srv2_t: "OSP & Fiber Optics",
+        srv2_d: "Turnkey Outside Plant (OSP) works, fiber trenching, blowing, micro-ducts, splicing, and OTDR optical testing.",
+        srv3_t: "Civil Works for Telecom",
+        srv3_d: "Excavation, specialized trenching, manhole placement, and protective civil conduits for telecommunications.",
+        srv4_t: "Subsurface Utility Survey (GPR)",
+        srv4_d: "Field survey utilizing Ground Penetrating Radar (GPR) to detect buried utilities and design hazard-free drilling paths.",
+        srv5_t: "Data Centers Infrastructure",
+        srv5_d: "Design, electrical setups, cooling corridors, and structured cabling for high-availability Tier-standard facilities.",
+        srv6_t: "Engineering Machinery & Fleets",
+        srv6_d: "Heavy-duty trenchers, cable-pulling winches, and precision equipment for fast, uninterrupted deployment.",
+        stmt_headline: "We build the infrastructure<br>that empowers global connectivity.",
+        stmt_annot: "Iris Blue Tech Solutions • Sustainable and resilient engineering",
+        proj_eyebrow: "Proven Track Record",
+        proj_title: "Our Projects",
+        proj_subtitle: "A selection of strategic infrastructure works, optical backbone corridors, and mission-critical data center deployments.",
+        tag_osp: "OSP Fiber Optics",
+        p1_t: "Optical Backbone Network – JAD Project",
+        p1_d: "Supervision and execution of civil works for strategic optical backbone routes connecting major municipal nodes.",
+        tag_rehab: "Rehabilitation",
+        p2_t: "Aleppo – Debsi Afnan Cable Rehabilitation",
+        p2_d: "Engineering supervision for the rehabilitation and modernization of the critical Aleppo – Debsi Afnan optical link.",
+        tag_regional: "Regional Interconnect",
+        p3_t: "Aleppo – Hama Interprovincial Optical Link",
+        p3_d: "Supervision and deployment of high-count fiber optic routes linking Aleppo to Hama province.",
+        tag_ftth: "FTTH Access Networks",
+        p4_t: "Aleppo Metropolitan FTTH Networks",
+        p4_d: "Civil infrastructure, micro-duct deployment, and optical distribution serving key residential and business districts.",
+        tag_med_dc: "Healthcare Data Center",
+        p5_t: "Italian Hospital Data Center – Damascus",
+        p5_d: "Turnkey setup and engineering supervision of the high-availability Italian Hospital Data Center facility.",
+        tag_nat_dc: "National Data Center",
+        p6_t: "Billing Data Center – Syrian Telecom - Damascus",
+        p6_d: "Technical supervision for the implementation of the core billing data center at Syrian Telecom.",
+        tag_vital: "Central Facilities",
+        p7_t: "Central HQ Data Center – Syrian Telecom - Damascus",
+        p7_d: "Engineering supervision and installation works for the national central administration data center.",
+        tag_ind: "Industrial & Enterprise",
+        p8_t: "Masalco Industrial Data Center – Adra",
+        p8_d: "Technical execution and commissioning of the industrial data center infrastructure for Masalco in Adra.",
+        tag_studies: "Technical Feasibility",
+        p9_t: "Sugar Factory Data Center Feasibility – Hassia",
+        p9_d: "Engineering study, operational modeling, and technical design for the Hassia industrial plant data center.",
+        why_title: "Why Iris Blue?",
+        why_subtitle: "Bridging specialized engineering precision with tested field execution for mission-critical digital projects.",
+        why1_t: "Deep Engineering Expertise",
+        why1_d: "Comprehensive domain understanding of modern telecom standards and digital infrastructure challenges.",
+        why2_t: "End-to-End Capabilities",
+        why2_d: "From GPR surveys and civil trenching to optical splicing, testing, and full handover.",
+        why3_t: "Tailored for Strategic Scale",
+        why3_d: "Equipped to handle national-tier projects with demanding technical constraints and strict deadlines.",
+        why4_t: "Quality & Safety Rigor",
+        why4_d: "Strict adherence to international safety procedures and uncompromising quality benchmarks across all phases.",
+        sec_eyebrow: "Strategic Partnerships",
+        sec_title: "Serving Vital Sectors",
+        sec1: "National & Strategic Infrastructure Projects",
+        sec2: "Telecom Operators & Internet Service Providers",
+        sec3: "Enterprise & Hyperscale Data Centers",
+        sec4: "Governmental & Public Sector Institutions",
+        sec5: "Mega Industrial & Critical Facilities",
+        cinematic_quote: "Resilient infrastructure begins with uncompromising execution.",
+        cnt_eyebrow: "Direct Communication Channels",
+        cnt_title: "Have a project requiring<br>reliable infrastructure?",
+        cnt_desc: "Speak directly with Iris Blue engineers and infrastructure consultants to review project scopes, technical drawings, and execution schedules immediately.",
+        cnt_wa_title: "Direct WhatsApp Chat",
+        cnt_instant: "Instant Chat",
+        cnt_phone_title: "Direct Phone Call",
+        cnt_call_badge: "Call Now",
+        cnt_email_title: "Technical Proposals & Inquiries",
+        cnt_email_badge: "Send Email",
+        exec_title: "24/7 Operational Readiness",
+        exec_desc: "Equipped with certified technical personnel and specialized heavy machinery to support all phases of digital infrastructure across strategic zones.",
+        exec_p1: "Swift technical turnaround for RFPs and tender drawings",
+        exec_p2: "On-site engineering supervision adhering to global benchmarks",
+        exec_p3: "Proven reliability in mission-critical national assignments",
+        footer_desc: "Digital infrastructure, telecommunications, and technical systems. Integrated engineering for strategic-scale projects.",
+        footer_s_title: "Core Services",
+        footer_s1: "OSP Fiber Optic Networks",
+        footer_s2: "GPR Subsurface Surveying",
+        footer_s3: "Data Center Infrastructure",
+        footer_s4: "Civil Telecom Engineering",
+        footer_q_title: "Quick Links",
+        footer_q4: "Contact Us Directly",
+        footer_rights: "All rights reserved. Advanced Digital Infrastructure Projects."
+      }
+    };
+
+    let currentLang = 'ar';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const html = document.documentElement;
+      
+      html.setAttribute('lang', lang);
+      html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+      // Update switcher labels
+      document.getElementById('langLabel').textContent = lang === 'ar' ? 'EN' : 'عربي';
+      document.getElementById('mobileLangLabel').textContent = lang === 'ar' ? 'EN' : 'عربي';
+
+      // Update all translatable elements
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          elem.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update meta description
+      const metaDesc = document.querySelector('meta[data-i18n-meta="meta_desc"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', translations[lang].meta_desc);
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
 
-      // Dynamic Year
+      // Copyright Year
       document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      // Language Switcher Handlers
+      const toggleLang = () => setLanguage(currentLang === 'ar' ? 'en' : 'ar');
+      document.getElementById('langSwitch').addEventListener('click', toggleLang);
+      document.getElementById('mobileLangSwitch').addEventListener('click', toggleLang);
 
       /* ------------------------------------------------------------------------
          01. PARTICLES.JS INITIALIZATION
@@ -2672,36 +3064,15 @@
       if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
           "particles": {
-            "number": {
-              "value": 45,
-              "density": {
-                "enable": true,
-                "value_area": 950
-              }
-            },
-            "color": {
-              "value": ["#3661FC", "#3661FC", "#FF5A1B"]
-            },
-            "shape": {
-              "type": "circle"
-            },
+            "number": { "value": 45, "density": { "enable": true, "value_area": 950 } },
+            "color": { "value": ["#3661FC", "#3661FC", "#FF5A1B"] },
+            "shape": { "type": "circle" },
             "opacity": {
               "value": 0.35,
               "random": true,
-              "anim": {
-                "enable": true,
-                "speed": 0.8,
-                "opacity_min": 0.15,
-                "sync": false
-              }
+              "anim": { "enable": true, "speed": 0.8, "opacity_min": 0.15, "sync": false }
             },
-            "size": {
-              "value": 3.2,
-              "random": true,
-              "anim": {
-                "enable": false
-              }
-            },
+            "size": { "value": 3.2, "random": true, "anim": { "enable": false } },
             "line_linked": {
               "enable": true,
               "distance": 150,
@@ -2722,22 +3093,12 @@
           "interactivity": {
             "detect_on": "window",
             "events": {
-              "onhover": {
-                "enable": true,
-                "mode": "grab"
-              },
-              "onclick": {
-                "enable": false
-              },
+              "onhover": { "enable": true, "mode": "grab" },
+              "onclick": { "enable": false },
               "resize": true
             },
             "modes": {
-              "grab": {
-                "distance": 160,
-                "line_linked": {
-                  "opacity": 0.45
-                }
-              }
+              "grab": { "distance": 160, "line_linked": { "opacity": 0.45 } }
             }
           },
           "retina_detect": true
