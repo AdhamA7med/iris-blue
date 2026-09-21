@@ -181,7 +181,6 @@
       justify-content: space-between;
     }
 
-    /* Responsive Logo image element */
     .brand-logo-link {
       display: inline-flex;
       align-items: center;
@@ -243,7 +242,6 @@
       gap: 0.9rem;
     }
 
-    /* Language Switcher Button */
     .lang-btn {
       display: inline-flex;
       align-items: center;
@@ -331,12 +329,10 @@
       font-size: 0.85rem;
     }
 
-    /* Directional Flip for Icons in LTR */
     html[dir="ltr"] .flip-on-ltr {
       transform: rotate(180deg);
     }
 
-    /* Hamburger Button */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -366,7 +362,7 @@
     .menu-toggle span:nth-child(3) { width: 20px; }
 
     /* ==========================================================================
-       MOBILE FULLSCREEN MENU WITH CLOSE BUTTON
+       MOBILE MENU
        ========================================================================== */
     .mobile-menu-overlay {
       position: fixed;
@@ -661,16 +657,40 @@
       line-height: 1.5;
     }
 
-    /* CENTERED STATS STRIP */
-    .hero-stats-band {
+    /* STATS STRIP SECTION WITH UPDATED TITLE */
+    .hero-stats-band-wrapper {
       margin-top: clamp(2.5rem, 5vh, 4.5rem);
       padding-top: 2rem;
       border-top: 1px solid var(--border-light);
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats-section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--black);
+      text-align: center;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .stats-section-title::before,
+    .stats-section-title::after {
+      content: '';
+      width: 25px;
+      height: 2px;
+      background-color: var(--orange);
+      display: inline-block;
+    }
+
+    .hero-stats-band {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(1.5rem, 3vw, 4rem);
-      position: relative;
-      z-index: 2;
     }
 
     .hero-stat-cell {
@@ -976,18 +996,22 @@
       transform: translateX(6px);
     }
 
-    /* Floating Image */
+    /* Fixed Floating Image Safe-Zone (Ensuring visibility in RTL) */
     .services-floating-preview {
       position: fixed;
+      top: 0;
+      left: 0;
+      right: auto;
+      bottom: auto;
       width: 280px;
       height: 190px;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 99999;
       opacity: 0;
       overflow: hidden;
-      border-radius: 4px;
+      border-radius: 6px;
       background-color: var(--black);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
       transition: opacity 0.25s ease;
       will-change: transform;
     }
@@ -996,6 +1020,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      pointer-events: none;
     }
 
     /* ==========================================================================
@@ -1062,7 +1087,7 @@
     }
 
     /* ==========================================================================
-       09. SECTION 05: PROJECTS SHOWCASE
+       09. SECTION 05: PROJECTS SHOWCASE (UPDATED LIST)
        ========================================================================== */
     .projects-section {
       padding: clamp(5rem, 11vh, 9rem) 0;
@@ -1630,7 +1655,7 @@
     }
 
     /* ==========================================================================
-       14. FLOATING ACTION ICONS (RIGHT SIDE)
+       14. FLOATING ACTION ICONS
        ========================================================================== */
     .floating-contact-actions {
       position: fixed;
@@ -1762,7 +1787,7 @@
     }
 
     /* ==========================================================================
-       16. MOTION SYSTEM & REVEALS
+       16. MOTION REVEALS
        ========================================================================== */
     .reveal-elem {
       opacity: 0;
@@ -1885,8 +1910,6 @@
       .hero-stats-band {
         grid-template-columns: 1fr;
         gap: 1.6rem;
-        padding-top: 1.85rem;
-        margin-top: 3rem;
       }
       .hero-stat-cell {
         align-items: center;
@@ -2001,16 +2024,14 @@
     <img id="servicePreviewImg" src="" alt="Service Preview">
   </div>
 
-  <!-- FLOATING QUICK CONTACT ICONS (RIGHT SIDE - OFFICIAL ICONS) -->
+  <!-- FLOATING QUICK CONTACT ICONS -->
   <div class="floating-contact-actions" role="region" aria-label="Quick Contact Actions">
-    <!-- Official WhatsApp Logo -->
     <a href="https://wa.me/+971507760662" target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp" aria-label="WhatsApp">
       <span class="tooltip" data-i18n="float_wa">واتساب</span>
       <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2C8.268 2 2 8.268 2 16c0 2.653.738 5.137 2.022 7.262L2.6 29.4l6.326-1.385A13.914 13.914 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6c-2.316 0-4.48-.684-6.294-1.865l-.45-.292-4.14.907.925-3.996-.312-.468A11.536 11.536 0 014.4 16C4.4 9.604 9.604 4.4 16 4.4S27.6 9.604 27.6 16 22.396 27.6 16 27.6zm6.89-8.732c-.378-.19-2.234-1.103-2.58-1.23-.346-.126-.598-.19-.85.19-.252.378-.977 1.23-1.198 1.482-.22.252-.44.284-.818.095-.378-.19-1.597-.588-3.042-1.877-1.124-1.003-1.884-2.242-2.104-2.62-.22-.378-.024-.582.166-.77.17-.17.378-.44.567-.661.189-.22.252-.378.378-.63.126-.252.063-.472-.032-.661-.094-.19-.85-2.05-1.165-2.808-.307-.738-.619-.638-.85-.65-.22-.01-.472-.013-.724-.013s-.661.095-1.008.472c-.346.378-1.322 1.293-1.322 3.152 0 1.86 1.354 3.656 1.543 3.908.19.252 2.664 4.07 6.455 5.706.902.39 1.606.623 2.155.797.906.288 1.73.247 2.382.15.727-.109 2.234-.914 2.549-1.796.315-.882.315-1.638.22-1.796-.094-.157-.346-.252-.724-.44z" fill="#FFFFFF"/>
       </svg>
     </a>
-    <!-- Phone Call Button -->
     <a href="tel:+971507760662" class="floating-btn phone" aria-label="Phone">
       <span class="tooltip" data-i18n="float_call">اتصال هاتفي</span>
       <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF">
@@ -2037,7 +2058,6 @@
       </nav>
 
       <div class="nav-action-wrapper">
-        <!-- Modern Language Toggle Button -->
         <button class="lang-btn" id="langSwitch" aria-label="Switch Language">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
@@ -2052,7 +2072,6 @@
           <svg class="flip-on-ltr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
 
-        <!-- Hamburger Icon Button -->
         <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation" aria-expanded="false" type="button">
           <span></span>
           <span></span>
@@ -2063,10 +2082,9 @@
   </header>
 
   <!-- ==========================================================================
-       MOBILE FULLSCREEN MENU
+       MOBILE MENU
        ========================================================================== -->
   <div class="mobile-menu-overlay" id="mobileMenu" aria-hidden="true">
-    
     <div class="mobile-menu-top-bar">
       <img src="Logo.png" alt="Iris Blue" class="mobile-brand-img">
       <div class="mobile-top-actions">
@@ -2168,27 +2186,30 @@
 
         </div>
 
-        <!-- Fully Centered Stats Strip -->
-        <div class="hero-stats-band reveal-elem">
-          <div class="hero-stat-cell">
-            <div class="hero-stat-num">
-              <span class="plus">+</span><span class="counter" data-target="10">0</span>
+        <!-- STATS SECTION (UPDATED TITLE: خبرات فريق العمل) -->
+        <div class="hero-stats-band-wrapper reveal-elem">
+          <div class="stats-section-title" data-i18n="stats_title">خبرات فريق العمل</div>
+          <div class="hero-stats-band">
+            <div class="hero-stat-cell">
+              <div class="hero-stat-num">
+                <span class="plus">+</span><span class="counter" data-target="10">0</span>
+              </div>
+              <div class="hero-stat-lbl" data-i18n="stat_exp">سنوات من الخبرة</div>
             </div>
-            <div class="hero-stat-lbl" data-i18n="stat_exp">سنوات من الخبرة</div>
-          </div>
 
-          <div class="hero-stat-cell">
-            <div class="hero-stat-num">
-              <span class="plus">+</span><span class="counter" data-target="50">0</span>
+            <div class="hero-stat-cell">
+              <div class="hero-stat-num">
+                <span class="plus">+</span><span class="counter" data-target="50">0</span>
+              </div>
+              <div class="hero-stat-lbl" data-i18n="stat_projects">مشروعاً منفذاً</div>
             </div>
-            <div class="hero-stat-lbl" data-i18n="stat_projects">مشروعاً منفذاً</div>
-          </div>
 
-          <div class="hero-stat-cell">
-            <div class="hero-stat-num">
-              <span class="plus">+</span><span class="counter" data-target="20">0</span>
+            <div class="hero-stat-cell">
+              <div class="hero-stat-num">
+                <span class="plus">+</span><span class="counter" data-target="20">0</span>
+              </div>
+              <div class="hero-stat-lbl" data-i18n="stat_partners">شريكاً ومورداً</div>
             </div>
-            <div class="hero-stat-lbl" data-i18n="stat_partners">شريكاً ومورداً</div>
           </div>
         </div>
 
@@ -2237,7 +2258,7 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 03: SERVICES
+       SECTION 03: SERVICES (UPDATED WITH 1.webp TO 6.webp)
        ========================================================================== -->
     <section class="services-section" id="services" aria-label="Our Services">
       <div class="container">
@@ -2253,7 +2274,7 @@
         <div class="services-editorial-table" role="list">
 
           <!-- 01 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="1.webp">
             <div class="service-num">01</div>
             <div class="service-title" data-i18n="srv1_t">البنية التحتية للاتصالات والشبكات</div>
             <div class="service-body" data-i18n="srv1_d">تنفيذ وتوسعة البنية التحتية لشبكات الاتصالات والإنترنت وفق المتطلبات الفنية للمشروع.</div>
@@ -2263,7 +2284,7 @@
           </div>
 
           <!-- 02 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="2.webp">
             <div class="service-num">02</div>
             <div class="service-title" data-i18n="srv2_t">OSP &amp; Fiber Optics</div>
             <div class="service-body" data-i18n="srv2_d">تنفيذ الشبكات الخارجية، مسارات الألياف الضوئية، أعمال السحب والتمديد، Fiber Splicing &amp; Optical Testing.</div>
@@ -2273,7 +2294,7 @@
           </div>
 
           <!-- 03 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="3.webp">
             <div class="service-num">03</div>
             <div class="service-title" data-i18n="srv3_t">الأعمال المدنية للاتصالات</div>
             <div class="service-body" data-i18n="srv3_d">تنفيذ أعمال الحفر والخنادق والمسارات والبنية المدنية المرتبطة بمشاريع الاتصالات.</div>
@@ -2283,7 +2304,7 @@
           </div>
 
           <!-- 04 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="4.webp">
             <div class="service-num">04</div>
             <div class="service-title" data-i18n="srv4_t">المسح وتحديد الخدمات المدفونة</div>
             <div class="service-body" data-i18n="srv4_d">تنفيذ المسح الميداني للمسارات واستخدام تقنية GPR لتحديد الخدمات والمنشآت المدفونة واختيار مسارات الحفر المناسبة.</div>
@@ -2293,7 +2314,7 @@
           </div>
 
           <!-- 05 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="5.webp">
             <div class="service-num">05</div>
             <div class="service-title" data-i18n="srv5_t">مراكز البيانات</div>
             <div class="service-body" data-i18n="srv5_d">توفير وتنفيذ حلول وتجهيزات البنية التحتية لمراكز البيانات والمنشآت التي تتطلب مستويات عالية من الاعتمادية والاستمرارية.</div>
@@ -2303,7 +2324,7 @@
           </div>
 
           <!-- 06 -->
-          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
+          <div class="service-row reveal-elem" role="listitem" tabindex="0" data-preview-image="6.webp">
             <div class="service-num">06</div>
             <div class="service-title" data-i18n="srv6_t">المعدات والآليات الهندسية</div>
             <div class="service-body" data-i18n="srv6_d">توفير واستخدام المعدات والآليات اللازمة لأعمال الحفر والتنفيذ وتمديد البنية التحتية.</div>
@@ -2337,7 +2358,7 @@
     </section>
 
     <!-- ==========================================================================
-       SECTION 05: PROJECTS SHOWCASE
+       SECTION 05: PROJECTS SHOWCASE (UPDATED EXACT 7 PROJECTS)
        ========================================================================== -->
     <section class="projects-section" id="projects" aria-label="Projects">
       <div class="container">
@@ -2358,11 +2379,11 @@
           <article class="project-card reveal-elem">
             <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_osp">الألياف الضوئية OSP</span>
-              <img src="1.jpeg" alt="Project 1" loading="lazy">
+              <img src="1.jpeg" alt="الشبكة الفقارية الضوئية – مشروع شركة جاد" loading="lazy">
             </div>
             <div class="project-card-body">
               <h3 class="project-card-title" data-i18n="p1_t">الشبكة الفقارية الضوئية – مشروع شركة جاد</h3>
-              <p class="project-card-desc" data-i18n="p1_d">الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.</p>
+              <p class="project-card-desc" data-i18n="p1_d">الإشراف بواسطة فريق متخصص على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.</p>
             </div>
           </article>
 
@@ -2370,11 +2391,11 @@
           <article class="project-card reveal-elem">
             <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_rehab">إعادة تأهيل وتطوير</span>
-              <img src="2.jpeg" alt="Project 2" loading="lazy">
+              <img src="2.jpeg" alt="إعادة تأهيل كابل حلب – دبسي عفنان" loading="lazy">
             </div>
             <div class="project-card-body">
               <h3 class="project-card-title" data-i18n="p2_t">إعادة تأهيل كابل حلب – دبسي عفنان</h3>
-              <p class="project-card-desc" data-i18n="p2_d">الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.</p>
+              <p class="project-card-desc" data-i18n="p2_d">الإشراف بواسطة فريق فني متخصص على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.</p>
             </div>
           </article>
 
@@ -2382,11 +2403,11 @@
           <article class="project-card reveal-elem">
             <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_regional">مسارات الربط الإقليمي</span>
-              <img src="3.jpeg" alt="Project 3" loading="lazy">
+              <img src="3.jpeg" alt="ربط حلب بمحافظة حماه" loading="lazy">
             </div>
             <div class="project-card-body">
               <h3 class="project-card-title" data-i18n="p3_t">ربط حلب بمحافظة حماه</h3>
-              <p class="project-card-desc" data-i18n="p3_d">الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.</p>
+              <p class="project-card-desc" data-i18n="p3_d">الإشراف بواسطة فريق متخصص على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.</p>
             </div>
           </article>
 
@@ -2394,11 +2415,11 @@
           <article class="project-card reveal-elem">
             <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_ftth">شبكات النفاذ FTTH</span>
-              <img src="4.jpeg" alt="Project 4" loading="lazy">
+              <img src="4.jpeg" alt="مشاريع FTTH – مدينة حلب" loading="lazy">
             </div>
             <div class="project-card-body">
               <h3 class="project-card-title" data-i18n="p4_t">مشاريع FTTH – مدينة حلب</h3>
-              <p class="project-card-desc" data-i18n="p4_d">تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.</p>
+              <p class="project-card-desc" data-i18n="p4_d">الإشراف بواسطة فريق متخصص على تأسيس البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.</p>
             </div>
           </article>
 
@@ -2406,59 +2427,35 @@
           <article class="project-card reveal-elem">
             <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_med_dc">مراكز بيانات طبية</span>
-              <img src="5.jpeg" alt="Project 5" loading="lazy">
+              <img src="5.jpeg" alt="مركز بيانات المشفى الطلياني – دمشق" loading="lazy">
             </div>
             <div class="project-card-body">
               <h3 class="project-card-title" data-i18n="p5_t">مركز بيانات المشفى الطلياني – دمشق</h3>
-              <p class="project-card-desc" data-i18n="p5_d">تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.</p>
+              <p class="project-card-desc" data-i18n="p5_d">تجهيز والإشراف بواسطة فريق فني متخصص على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.</p>
             </div>
           </article>
 
           <!-- Project 06 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill" data-i18n="tag_nat_dc">مراكز بيانات وطنية</span>
-              <img src="6.jpeg" alt="Project 6" loading="lazy">
+              <span class="project-tag-pill" data-i18n="tag_ind">قطاع صناعي واستثماري</span>
+              <img src="6.jpeg" alt="مركز بيانات شركة مسالكو – عدرا - ريف دمشق" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title" data-i18n="p6_t">مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق</h3>
-              <p class="project-card-desc" data-i18n="p6_d">الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.</p>
+              <h3 class="project-card-title" data-i18n="p6_t">مركز بيانات شركة مسالكو – عدرا - ريف دمشق</h3>
+              <p class="project-card-desc" data-i18n="p6_d">تجهيز والإشراف بواسطة فريق متخصص على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.</p>
             </div>
           </article>
 
           <!-- Project 07 -->
           <article class="project-card reveal-elem">
             <div class="project-image-box">
-              <span class="project-tag-pill" data-i18n="tag_vital">منشآت حيوية</span>
-              <img src="7.jpeg" alt="Project 7" loading="lazy">
-            </div>
-            <div class="project-card-body">
-              <h3 class="project-card-title" data-i18n="p7_t">مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق</h3>
-              <p class="project-card-desc" data-i18n="p7_d">الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.</p>
-            </div>
-          </article>
-
-          <!-- Project 08 -->
-          <article class="project-card reveal-elem">
-            <div class="project-image-box">
-              <span class="project-tag-pill" data-i18n="tag_ind">قطاع صناعي واستثماري</span>
-              <img src="8.jpeg" alt="Project 8" loading="lazy">
-            </div>
-            <div class="project-card-body">
-              <h3 class="project-card-title" data-i18n="p8_t">مركز بيانات شركة مسالكو – عدرا - ريف دمشق</h3>
-              <p class="project-card-desc" data-i18n="p8_d">تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.</p>
-            </div>
-          </article>
-
-          <!-- Project 09 -->
-          <article class="project-card reveal-elem">
-            <div class="project-image-box">
               <span class="project-tag-pill" data-i18n="tag_studies">دراسات واستشارات فنية</span>
-              <img src="9.jpeg" alt="Project 9" loading="lazy">
+              <img src="7.jpeg" alt="دراسة مركز بيانات معمل السكر – حسيا - ريف حمص" loading="lazy">
             </div>
             <div class="project-card-body">
-              <h3 class="project-card-title" data-i18n="p9_t">دراسة مركز بيانات معمل السكر – حسيا - ريف حمص</h3>
-              <p class="project-card-desc" data-i18n="p9_d">إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.</p>
+              <h3 class="project-card-title" data-i18n="p7_t">دراسة مركز بيانات معمل السكر – حسيا - ريف حمص</h3>
+              <p class="project-card-desc" data-i18n="p7_d">إعداد الدراسة والتصور الفني بواسطة فريق متخصص لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.</p>
             </div>
           </article>
 
@@ -2797,6 +2794,7 @@
         hero_btn_contact: "تواصل معنا",
         hero_btn_projects: "استعرض مشاريعنا",
         hero_badge_text: "دقة هندسية وقدرات ميدانية مجهزة لأعقد مشاريع الاتصالات.",
+        stats_title: "خبرات فريق العمل",
         stat_exp: "سنوات من الخبرة",
         stat_projects: "مشروعاً منفذاً",
         stat_partners: "شريكاً ومورداً",
@@ -2828,31 +2826,25 @@
         proj_subtitle: "نخبة من المشاريع الاستراتيجية والتنفيذية المنفذة في شبكات الألياف الضوئية، المسارات الفقارية، وتجهيز مراكز البيانات عالية الاعتمادية.",
         tag_osp: "الألياف الضوئية OSP",
         p1_t: "الشبكة الفقارية الضوئية – مشروع شركة جاد",
-        p1_d: "الإشراف على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.",
+        p1_d: "الإشراف بواسطة فريق متخصص على تنفيذ الأعمال المدنية لمسارات الشبكة الفقارية الضوئية وربط المدن والمحاور الرئيسية.",
         tag_rehab: "إعادة تأهيل وتطوير",
         p2_t: "إعادة تأهيل كابل حلب – دبسي عفنان",
-        p2_d: "الإشراف على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.",
+        p2_d: "الإشراف بواسطة فريق فني متخصص على إعادة تأهيل وتطوير مسار كابل الألياف الضوئية الرابط بين حلب ودبسي عفنان.",
         tag_regional: "مسارات الربط الإقليمي",
         p3_t: "ربط حلب بمحافظة حماه",
-        p3_d: "الإشراف على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.",
+        p3_d: "الإشراف بواسطة فريق متخصص على تمديد كابلات الألياف الضوئية لربط حلب بمحافظة حماه وتعزيز البنية التحتية للاتصالات.",
         tag_ftth: "شبكات النفاذ FTTH",
         p4_t: "مشاريع FTTH – مدينة حلب",
-        p4_d: "تأسيس وتنفيذ البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.",
+        p4_d: "الإشراف بواسطة فريق متخصص على تأسيس البنية التحتية لشبكات FTTH وتمديد الألياف الضوئية لخدمة أحياء مدينة حلب.",
         tag_med_dc: "مراكز بيانات طبية",
         p5_t: "مركز بيانات المشفى الطلياني – دمشق",
-        p5_d: "تجهيز والإشراف على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.",
-        tag_nat_dc: "مراكز بيانات وطنية",
-        p6_t: "مركز بيانات الفوترة – الشركة السورية للاتصالات - دمشق",
-        p6_d: "الإشراف الفني على تجهيز وتنفيذ مركز بيانات الفوترة بالشركة السورية للاتصالات.",
-        tag_vital: "منشآت حيوية",
-        p7_t: "مركز بيانات الإدارة المركزية – الشركة السورية للاتصالات - دمشق",
-        p7_d: "الإشراف على تجهيز وتنفيذ مركز بيانات الإدارة المركزية للشركة السورية للاتصالات.",
+        p5_d: "تجهيز والإشراف بواسطة فريق فني متخصص على تنفيذ مركز بيانات المشفى الطلياني وفق المتطلبات الفنية للمشروع.",
         tag_ind: "قطاع صناعي واستثماري",
-        p8_t: "مركز بيانات شركة مسالكو – عدرا - ريف دمشق",
-        p8_d: "تجهيز والإشراف على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.",
+        p6_t: "مركز بيانات شركة مسالكو – عدرا - ريف دمشق",
+        p6_d: "تجهيز والإشراف بواسطة فريق متخصص على تنفيذ الأعمال الفنية لمركز بيانات شركة مسالكو في عدرا.",
         tag_studies: "دراسات واستشارات فنية",
-        p9_t: "دراسة مركز بيانات معمل السكر – حسيا - ريف حمص",
-        p9_d: "إعداد الدراسة والتصور الفني لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.",
+        p7_t: "دراسة مركز بيانات معمل السكر – حسيا - ريف حمص",
+        p7_d: "إعداد الدراسة والتصور الفني بواسطة فريق متخصص لإنشاء مركز بيانات معمل السكر وفق متطلبات الموقع والتشغيل.",
         why_title: "لماذا Iris Blue؟",
         why_subtitle: "نجمع بين الفهم الهندسي المتخصص والقدرات الميدانية المؤهلة للتعامل مع متطلبات المشاريع الحيوية.",
         why1_t: "خبرة فنية متخصصة",
@@ -2920,6 +2912,7 @@
         hero_btn_contact: "Contact Us",
         hero_btn_projects: "Explore Projects",
         hero_badge_text: "Engineering precision and field readiness for demanding telecom infrastructure.",
+        stats_title: "Our Team Experience",
         stat_exp: "Years of Experience",
         stat_projects: "Delivered Projects",
         stat_partners: "Partners & Suppliers",
@@ -2951,31 +2944,25 @@
         proj_subtitle: "A selection of strategic infrastructure works, optical backbone corridors, and mission-critical data center deployments.",
         tag_osp: "OSP Fiber Optics",
         p1_t: "Optical Backbone Network – JAD Project",
-        p1_d: "Supervision and execution of civil works for strategic optical backbone routes connecting major municipal nodes.",
+        p1_d: "Specialized team supervision on civil works execution for backbone optical routes connecting key metropolitan nodes.",
         tag_rehab: "Rehabilitation",
         p2_t: "Aleppo – Debsi Afnan Cable Rehabilitation",
-        p2_d: "Engineering supervision for the rehabilitation and modernization of the critical Aleppo – Debsi Afnan optical link.",
+        p2_d: "Specialized technical team supervision on rehabilitating and upgrading the fiber optic link between Aleppo and Debsi Afnan.",
         tag_regional: "Regional Interconnect",
         p3_t: "Aleppo – Hama Interprovincial Optical Link",
-        p3_d: "Supervision and deployment of high-count fiber optic routes linking Aleppo to Hama province.",
+        p3_d: "Specialized team supervision on laying fiber optic cables linking Aleppo to Hama province to boost telecom infrastructure.",
         tag_ftth: "FTTH Access Networks",
         p4_t: "Aleppo Metropolitan FTTH Networks",
-        p4_d: "Civil infrastructure, micro-duct deployment, and optical distribution serving key residential and business districts.",
+        p4_d: "Specialized team supervision on deploying FTTH network infrastructure and fiber distribution across Aleppo districts.",
         tag_med_dc: "Healthcare Data Center",
         p5_t: "Italian Hospital Data Center – Damascus",
-        p5_d: "Turnkey setup and engineering supervision of the high-availability Italian Hospital Data Center facility.",
-        tag_nat_dc: "National Data Center",
-        p6_t: "Billing Data Center – Syrian Telecom - Damascus",
-        p6_d: "Technical supervision for the implementation of the core billing data center at Syrian Telecom.",
-        tag_vital: "Central Facilities",
-        p7_t: "Central HQ Data Center – Syrian Telecom - Damascus",
-        p7_d: "Engineering supervision and installation works for the national central administration data center.",
+        p5_d: "Specialized technical execution and supervision of the Italian Hospital Data Center complying with project specs.",
         tag_ind: "Industrial & Enterprise",
-        p8_t: "Masalco Industrial Data Center – Adra",
-        p8_d: "Technical execution and commissioning of the industrial data center infrastructure for Masalco in Adra.",
+        p6_t: "Masalco Industrial Data Center – Adra",
+        p6_d: "Specialized technical supervision and execution of the data center technical works for Masalco in Adra.",
         tag_studies: "Technical Feasibility",
-        p9_t: "Sugar Factory Data Center Feasibility – Hassia",
-        p9_d: "Engineering study, operational modeling, and technical design for the Hassia industrial plant data center.",
+        p7_t: "Sugar Factory Data Center Feasibility – Hassia",
+        p7_d: "Preparation of technical study and operational design by a specialized team for the sugar factory data center.",
         why_title: "Why Iris Blue?",
         why_subtitle: "Bridging specialized engineering precision with tested field execution for mission-critical digital projects.",
         why1_t: "Deep Engineering Expertise",
@@ -3106,7 +3093,7 @@
       }
 
       /* ------------------------------------------------------------------------
-         02. BULLETPROOF MOBILE MENU
+         02. MOBILE MENU
          ------------------------------------------------------------------------ */
       const menuToggle = document.getElementById('menuToggle');
       const menuCloseBtn = document.getElementById('menuCloseBtn');
@@ -3256,38 +3243,44 @@
       }
 
       /* ------------------------------------------------------------------------
-         07. BOUNDED CURSOR-SAFE SERVICES IMAGE PREVIEW
+         07. FULLY FIXED HOVER IMAGE PREVIEW FOR SERVICES (WORKS IN RTL & LTR)
          ------------------------------------------------------------------------ */
       const serviceRows = document.querySelectorAll('.service-row');
       const servicePreview = document.getElementById('servicePreview');
       const servicePreviewImg = document.getElementById('servicePreviewImg');
 
       if (!isTouch && servicePreview && servicePreviewImg) {
-        let mouseClientX = 0, mouseClientY = 0;
-        let previewX = 0, previewY = 0;
         const boxWidth = 280;
         const boxHeight = 190;
-        const offset = 20;
+        const offset = 22;
 
         window.addEventListener('mousemove', (e) => {
-          mouseClientX = e.clientX;
-          mouseClientY = e.clientY;
+          const mouseClientX = e.clientX;
+          const mouseClientY = e.clientY;
 
-          let targetX = mouseClientX + offset;
-          let targetY = mouseClientY - (boxHeight / 2);
+          let targetX;
+          const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
 
-          if (targetX + boxWidth > window.innerWidth - 15) {
+          // In RTL mode, naturally position it near the cursor without going offscreen
+          if (isRTL) {
             targetX = mouseClientX - boxWidth - offset;
+            if (targetX < 15) {
+              targetX = mouseClientX + offset;
+            }
+          } else {
+            targetX = mouseClientX + offset;
+            if (targetX + boxWidth > window.innerWidth - 15) {
+              targetX = mouseClientX - boxWidth - offset;
+            }
           }
 
+          let targetY = mouseClientY - (boxHeight / 2);
           if (targetY < 20) targetY = 20;
           if (targetY + boxHeight > window.innerHeight - 20) {
             targetY = window.innerHeight - boxHeight - 20;
           }
 
-          previewX = targetX;
-          previewY = targetY;
-          servicePreview.style.transform = `translate(${previewX}px, ${previewY}px)`;
+          servicePreview.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
         });
 
         serviceRows.forEach((row) => {
